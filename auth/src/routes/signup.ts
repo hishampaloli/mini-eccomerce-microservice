@@ -1,13 +1,26 @@
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
+import { validateRequest } from "@hpshops/common";
 
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
-    console.log(34343434343);
+router.post(
+  "/api/auth/signup",
+  [
+    body("email").isEmail().withMessage("Email must be valid"),
+    body("password")
+      .trim()
+      .notEmpty()
+      .withMessage("You must provide a passwors"),
+    body("name").trim().notEmpty().withMessage("You must provide a name"),
+  ],
+  validateRequest,
+  (req: Request, res: Response) => {
+    const { email, password, name } = req.body;
     
-    res.send('hi')
-})
+    res.send({ email, password, name });
+  }
+);
 
-export {router as SignUpRouter}
+export { router as SignUpRouter };

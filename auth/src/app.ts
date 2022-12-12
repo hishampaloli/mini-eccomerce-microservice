@@ -12,6 +12,7 @@ import {
 const app = express();
 
 const router = express.Router();
+
 app.set("trust proxy", true);
 app.use(json());
 app.use(
@@ -19,16 +20,9 @@ app.use(
     signed: false,
   })
 );
-console.log(23);
-
-router.get('/hi', (req: Request, res: Response) => {
-    console.log(34343434343);
-    
-    res.send('hi')
-})
 
 
-// app.use(SignUpRouter);
+app.use(SignUpRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
