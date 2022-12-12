@@ -23,5 +23,12 @@ build:
       sync:
         manual:
           - src: "src/**/*.ts"
-            dest: .            
-                       
+            dest: .
+    - image: hishampaloli/admin
+      context: admin
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .

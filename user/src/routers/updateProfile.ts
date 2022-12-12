@@ -1,11 +1,6 @@
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-import {
-  validateRequest,
-  protect,
-  NotFoundError,
-  isOwner,
-} from "@hpshops/common";
+import { protect, NotFoundError, isOwner } from "@hpshops/common";
 import { User } from "../models/user";
 
 const router = express.Router();

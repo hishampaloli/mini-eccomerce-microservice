@@ -12,9 +12,9 @@ export class UserCreatedListener extends Listener<UserRegisteredEvent> {
   async onMessage(data: UserRegisteredEvent["data"], msg: Message) {
     const { name, email, userId, version } = data;
 
-    console.log(name);
-    console.log(email);
-    console.log(userId);
+    // console.log(name);
+    // console.log(email);
+    // console.log(userId);
 
     const user = User.build({
       address: "please add an address",
@@ -23,18 +23,24 @@ export class UserCreatedListener extends Listener<UserRegisteredEvent> {
       image:
         "https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png",
       userId,
+      isBlocked: false,
     });
 
     await user.save();
 
-    new ProfileCreatedPublisher(natsWrapper.client).publish({
-      address: user.address,
-      email: user.email,
-      name: user.name,
-      image: user.image,
-      version: user.version,
-      userId: user.id,
-    });
+    if (user) {
+      await new ProfileCreatedPublisher(natsWrapper.client).publish({
+        address: user.address,
+        email: user.email,
+        name: user.name,
+        image: user.image,
+        version: user.version,
+        userId: user.id,
+        isBlocked: user.isBlocked,
+      });
+
+      console.log("PROFILE:CREATED PUBLISHED");
+    }
 
     msg.ack();
   }

@@ -41,6 +41,9 @@ router.post(
         version: 233
       });
 
+      console.log("REG PUBLISHED");
+      
+
     res.status(201).json({
       email,
       password,

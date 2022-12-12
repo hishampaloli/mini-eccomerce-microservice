@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import {
-  validateRequest,
+  
   protect,
   NotFoundError,
   isOwner,
@@ -12,7 +12,6 @@ const router = express.Router();
 
 router.get("/api/user/:userId", protect, isOwner, async (req: Request, res: Response) => {
   const { userId } = req.params;
-  console.log(userId);
 
   const user = await User.findById(userId);
 

@@ -18,8 +18,8 @@ interface UserDoc extends mongoose.Document {
   email: string;
   address: string;
   image: string;
-  isBlocked: boolean;
   name: string;
+  isBlocked: boolean;
   updatedAt: string;
   version: number;
 }
@@ -42,9 +42,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isBlock: {
+    isBlocked: {
       type: Boolean,
-      require: true,
+      required: true,
     },
   },
   {
@@ -67,7 +67,6 @@ userSchema.statics.build = (attrs: UserAttrs) => {
     name: attrs.name,
     address: attrs.address,
     image: attrs.image,
-    isBlocked: attrs.isBlocked,
   });
 };
 
