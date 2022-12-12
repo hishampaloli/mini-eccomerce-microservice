@@ -3,6 +3,7 @@ import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper";
 import { UserCreatedListener } from "./events/listerners/user-registered-listener";
 import { ProfileCreatedPublisher } from "./events/publisher/profile-created-publisher";
+import { UserBlockListener } from "./events/listerners/user-block-listener";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -31,6 +32,7 @@ const start = async () => {
     process.on("SIGTERM", () => natsWrapper.client.close());
 
     new UserCreatedListener(natsWrapper.client).listen();
+    new UserBlockListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to USER MongoDb");

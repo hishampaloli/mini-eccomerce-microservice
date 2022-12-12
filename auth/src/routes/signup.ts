@@ -40,8 +40,6 @@ router.post(
         name: user.name,
         version: 233
       });
-
-      console.log("REG PUBLISHED");
       
 
     res.status(201).json({

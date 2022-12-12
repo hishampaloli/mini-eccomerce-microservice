@@ -28,11 +28,7 @@ export class UserCreatedListener extends Listener<UserRegisteredEvent> {
 
     await user.save();
 
-
-
     if (user) {
-
-        
       await new ProfileCreatedPublisher(natsWrapper.client).publish({
         address: user.address,
         email: user.email,

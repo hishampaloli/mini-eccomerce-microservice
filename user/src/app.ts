@@ -5,7 +5,7 @@ import {
   NotAuthorizedError,
   NotFoundError,
   errorHandler,
-} from "@hpshops/common/build";
+} from "@hpshops/common";
 import { GetProfileRouter } from "./routers/getProfile";
 import { UpdateProfileRouter } from "./routers/updateProfile";
 
