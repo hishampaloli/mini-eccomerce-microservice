@@ -8,7 +8,9 @@ export class ProfileCreatedListener extends Listener<ProfileCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: ProfileCreatedEvent["data"], msg: Message) {
-    const { name, email, userId, version, image, address,isBlocked } = data;
+    const { name, email, userId, image, address, isBlocked } = data;
+
+    
 
     const user = User.build({
       address,
@@ -16,7 +18,7 @@ export class ProfileCreatedListener extends Listener<ProfileCreatedEvent> {
       name,
       image,
       userId,
-      isBlocked
+      isBlocked,
     });
 
     await user.save();

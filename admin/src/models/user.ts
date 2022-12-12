@@ -67,6 +67,7 @@ userSchema.statics.build = (attrs: UserAttrs) => {
     name: attrs.name,
     address: attrs.address,
     image: attrs.image,
+    isBlocked: attrs.isBlocked,
   });
 };
 

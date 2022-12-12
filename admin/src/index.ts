@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper";
 import { ProfileCreatedListener } from "./events/listeners/profile-created-event";
+import { ProfileUpdateListener } from "./events/listeners/profile-updated-event";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -30,6 +31,7 @@ const start = async () => {
     process.on("SIGTERM", () => natsWrapper.client.close());
 
     new ProfileCreatedListener(natsWrapper.client).listen();
+    new ProfileUpdateListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to USER MongoDb");

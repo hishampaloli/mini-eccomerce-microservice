@@ -2,6 +2,8 @@ import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import { protect, NotFoundError, isOwner } from "@hpshops/common";
 import { User } from "../models/user";
+import { ProfileUpdatedPublisher } from "../events/publisher/profile-updated-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -24,6 +26,13 @@ router.post(
       }
 
       await user.save();
+
+      await new ProfileUpdatedPublisher(natsWrapper.client).publish({
+        userId: user.id,
+        address: user.address,
+        image: user.image,
+      });
+
       res.json(user);
     } else {
       throw new NotFoundError();
