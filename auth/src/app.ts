@@ -3,6 +3,8 @@ import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import { SignUpRouter } from "./routes/signup";
+import { SignInRouter } from "./routes/signin";
+import { currentUserRoute } from "./routes/currentuser";
 import {
   NotAuthorizedError,
   NotFoundError,
@@ -21,8 +23,9 @@ app.use(
   })
 );
 
-
 app.use(SignUpRouter);
+app.use(SignInRouter);
+app.use(currentUserRoute);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();

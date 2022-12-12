@@ -4,40 +4,46 @@ import jwt from "jsonwebtoken";
 import { validateRequest, BadRequestError } from "@hpshops/common";
 import generateToken from "../utils/jsonwebtoken";
 import { User } from "../models/users";
+import { Password } from "../utils/password";
 
 const router = express.Router();
 
 router.post(
-  "/api/auth/signup",
+  "/api/auth/signin",
   [
     body("email").isEmail().withMessage("Email must be valid"),
     body("password")
       .trim()
       .notEmpty()
       .withMessage("You must provide a passwors"),
-    body("name").trim().notEmpty().withMessage("You must provide a name"),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { email, password, name } = req.body;
 
-    const userExists = await User.findOne({ email });
+    const { email, password } = req.body;
 
-    if (userExists) {
-      throw new BadRequestError("Email already in use !");
+    const existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      throw new BadRequestError("Invalid Credentials");
     }
 
-    const user = User.build({ email, password, name });
-    await user.save();
-    const token: any = generateToken(user);
+    const passwordsMatch = await Password.compare(
+        existingUser.password,
+        password
+      );
+  
+      if (!passwordsMatch) {
+        throw new BadRequestError("Invalid Credentials");
+      }
 
-    res.json({
-      email,
-      password,
-      name,
-      token,
-    });
+      let token = generateToken(existingUser)
+
+      res.json({
+        existingUser,
+        token
+      })
   }
 );
 
-export { router as SignUpRouter };
+export {router as SignInRouter}
