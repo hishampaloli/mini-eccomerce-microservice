@@ -1,14 +1,26 @@
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-import { validateRequest, protect } from "@hpshops/common";
+import {
+  validateRequest,
+  protect,
+  NotFoundError,
+  isOwner,
+} from "@hpshops/common";
+import { User } from "../models/user";
 
 const router = express.Router();
 
-router.get('/api/user/hi', async(req, res) => {
-console.log(23434);
+router.get("/api/user/:userId", protect, isOwner, async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  console.log(userId);
 
-    res.json({hi: 'sdf'})
-})
+  const user = await User.findById(userId);
 
+  if (user) {
+    res.json(user);
+  } else {
+    throw new NotFoundError();
+  }
+});
 
-export {router as GetProfileRouter}
+export { router as GetProfileRouter };

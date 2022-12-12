@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
-import { Password } from "../utils/password";
 import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface UserAttrs {
   email: string;
-  password: string;
   name: string;
+  address: string;
+  image: string;
+  userId: string;
 }
 
 interface UserModal extends mongoose.Model<UserDoc> {
@@ -14,7 +15,8 @@ interface UserModal extends mongoose.Model<UserDoc> {
 
 interface UserDoc extends mongoose.Document {
   email: string;
-  password: string;
+  address: string;
+  image: string;
   name: string;
   updatedAt: string;
   version: number;
@@ -26,11 +28,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    password: {
+    name: {
       type: String,
       required: true,
     },
-    name: {
+    address: {
+      type: String,
+      required: true,
+    },
+    image: {
       type: String,
       required: true,
     },
@@ -40,33 +46,24 @@ const userSchema = new mongoose.Schema(
       transform(doc, ret) {
         ret.id = ret._id;
         delete ret._id;
-        delete ret.password;
       },
     },
   }
 );
 
-userSchema.pre("save", async function (done) {
-  if (this.isModified("password")) {
-    const hashed = await Password.toHash(this.get("password"));
-    this.set("password", hashed);
-  }
-  done();
-});
-
 userSchema.set("versionKey", "version");
 userSchema.plugin(updateIfCurrentPlugin);
 
 userSchema.statics.build = (attrs: UserAttrs) => {
-  return new User(attrs);
+  return new User({
+    _id: attrs.userId,
+    email: attrs.email,
+    name: attrs.name,
+    address: attrs.address,
+    image: attrs.image,
+  });
 };
 
 const User = mongoose.model<UserDoc, UserModal>("User", userSchema);
-
-// const user = User.build({
-//   email: "teds",
-//   password: "sdfdf",
-//   name: "dgfg"
-// });
 
 export { User };
