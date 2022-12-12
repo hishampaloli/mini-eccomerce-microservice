@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Password } from "../utils/password";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface UserAttrs {
   email: string;
@@ -16,6 +17,7 @@ interface UserDoc extends mongoose.Document {
   password: string;
   name: string;
   updatedAt: string;
+  version: number;
 }
 
 const userSchema = new mongoose.Schema(
@@ -52,6 +54,9 @@ userSchema.pre("save", async function (done) {
   }
   done();
 });
+
+userSchema.set("versionKey", "version");
+userSchema.plugin(updateIfCurrentPlugin);
 
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
