@@ -30,6 +30,8 @@ router.patch(
           userId: user.id,
           isBlocked: user.isBlocked,
         });
+      }else {
+        throw new NotFoundError()
       }
 
       res.json(user);

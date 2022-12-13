@@ -6,6 +6,7 @@ import {
   NotFoundError,
   isOwner,
   isAdmin,
+  BadRequestError,
 } from "@hpshops/common";
 import { natsWrapper } from "../nats-wrapper";
 import { Product } from "../models/products";
@@ -23,8 +24,11 @@ router.put(
       const { title, description, price, stock, image } = req.body;
 
       const product = await Product.findById(productId);
+      console.log(product);
 
-      if (!product) throw new NotFoundError();
+      if (!product) {        
+        throw new NotFoundError();
+      }
 
       if (title) product.title = title;
       if (description) product.description = description;
@@ -33,10 +37,12 @@ router.put(
       if (image) product.image = image;
 
       await product.save();
-      
+
       res.json(product);
-    } catch (error) {}
+    } catch (error) {
+        res.json(error)
+    }
   }
 );
 
-export { router as getProductRouter };
+export { router as updateProductRouter };

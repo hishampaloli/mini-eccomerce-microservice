@@ -12,7 +12,7 @@ import { Product } from "../models/products";
 
 const router = express.Router();
 
-router.get(
+router.delete(
   "/api/admin/product/:productId",
 
   protect,
@@ -21,15 +21,15 @@ router.get(
     try {
       const { productId } = req.params;
 
-      const product = await Product.findById(productId);
+      const product = await Product.findByIdAndDelete(productId);
 
       if (!product) throw new NotFoundError();
 
-      res.json(product);
+      res.json({message: "PRODUCT DELETED"});
     } catch (error) {
       res.status(500).json(error)
     }
   }
 );
 
-export { router as getProductRouter };
+export { router as deleteProductRouter };

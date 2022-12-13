@@ -10,6 +10,8 @@ import { GetUsersRouter } from "./router/getUsers";
 import { BlockUserRouter } from "./router/blockUser";
 import { addProductRouter } from "./router/addProducts";
 import { getProductRouter } from "./router/getProducts";
+import { updateProductRouter } from "./router/updateProducts";
+import { deleteProductRouter } from "./router/deleteProducts";
 
 const app = express();
 
@@ -22,6 +24,8 @@ app.use(GetUsersRouter);
 app.use(BlockUserRouter);
 app.use(addProductRouter);
 app.use(getProductRouter);
+app.use(updateProductRouter)
+app.use(deleteProductRouter)
 
 
 app.all("*", async (req, res) => {
