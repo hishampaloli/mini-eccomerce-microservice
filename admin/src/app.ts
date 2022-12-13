@@ -8,6 +8,8 @@ import {
 } from "@hpshops/common/build";
 import { GetUsersRouter } from "./router/getUsers";
 import { BlockUserRouter } from "./router/blockUser";
+import { addProductRouter } from "./router/addProducts";
+import { getProductRouter } from "./router/getProducts";
 
 const app = express();
 
@@ -18,6 +20,9 @@ app.use(json());
 
 app.use(GetUsersRouter);
 app.use(BlockUserRouter);
+app.use(addProductRouter);
+app.use(getProductRouter);
+
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();

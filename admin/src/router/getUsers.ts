@@ -8,7 +8,6 @@ import {
   isAdmin,
 } from "@hpshops/common";
 import { User } from "../models/user";
-// import
 
 const router = express.Router();
 
