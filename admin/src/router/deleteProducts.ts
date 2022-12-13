@@ -8,6 +8,7 @@ import {
   isAdmin,
 } from "@hpshops/common";
 import { natsWrapper } from "../nats-wrapper";
+import { ProductDeletedPublisher } from "../events/publisher.ts/product-deleted-event";
 import { Product } from "../models/products";
 
 const router = express.Router();
@@ -25,9 +26,13 @@ router.delete(
 
       if (!product) throw new NotFoundError();
 
-      res.json({message: "PRODUCT DELETED"});
+      await new ProductDeletedPublisher(natsWrapper.client).publish({
+        id: product.id,
+      });
+
+      res.json({ message: "PRODUCT DELETED" });
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(error);
     }
   }
 );
