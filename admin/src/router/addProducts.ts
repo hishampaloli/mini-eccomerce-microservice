@@ -9,6 +9,7 @@ import {
 } from "@hpshops/common";
 import { natsWrapper } from "../nats-wrapper";
 import { Product } from "../models/products";
+import { ProductCreatedPublisher } from "../events/publisher.ts/product-created-event";
 
 const router = express.Router();
 
@@ -51,6 +52,15 @@ router.post(
       });
 
       await product.save();
+
+      await new ProductCreatedPublisher(natsWrapper.client).publish({
+        description: product.description,
+        title: product.title,
+        stock: Number(product.stock),
+        price: Number(product.price),
+        image: product.image,
+        id: product.id,
+      });
 
       res.json(product);
     } catch (error) {}
