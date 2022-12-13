@@ -30,4 +30,18 @@ spec:
               service:
                 name: admin-srv
                 port:
-                  number: 3000                            
+                  number: 3000  
+          - path: /api/product/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: product-srv
+                port:
+                  number: 3000   
+          - path: /api/cart/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: cart-srv
+                port:
+                  number: 3000                                                                                                

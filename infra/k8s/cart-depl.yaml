@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart
+  template:
+    metadata:
+      labels:
+        app: cart
+    spec:
+      containers:
+        - name: cart
+          image: hishampaloli/cart
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://cart-mongo-srv:27017/cart'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name                  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart-srv
+spec:
+  selector:
+    app: cart
+  ports:
+    - name: cart
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
