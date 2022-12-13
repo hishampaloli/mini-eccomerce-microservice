@@ -10,6 +10,7 @@ import {
 } from "@hpshops/common";
 import { natsWrapper } from "../nats-wrapper";
 import { Product } from "../models/products";
+import { ProductUpdatedPublisher } from "../events/publisher.ts/product-updated-event";
 
 const router = express.Router();
 
@@ -26,7 +27,7 @@ router.put(
       const product = await Product.findById(productId);
       console.log(product);
 
-      if (!product) {        
+      if (!product) {
         throw new NotFoundError();
       }
 
@@ -38,9 +39,18 @@ router.put(
 
       await product.save();
 
+      await new ProductUpdatedPublisher(natsWrapper.client).publish({
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        stock: product.stock,
+        image: product.image,
+        id: product.id,
+      });
+
       res.json(product);
     } catch (error) {
-        res.json(error)
+      res.json(error);
     }
   }
 );
