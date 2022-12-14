@@ -6,7 +6,7 @@ import {
   NotFoundError,
   isOwner,
   isAdmin,
-} from "@hpshops/common";
+} from "@hpshops/common/build";
 import { Product } from "../models/products";
 import { User } from "../models/user";
 
@@ -24,9 +24,6 @@ router.delete("/api/cart/:id", protect, async (req: Request, res: Response) => {
     if (!user) throw new NotFoundError();
 
     const arr = user.cart.filter((el: any) => {
-      console.log(el.product);
-      console.log(id);
-
       return el.product + 1 !== id + 1;
     });
 
