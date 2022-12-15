@@ -14,7 +14,7 @@ export class UserBlockListener extends Listener<UserBlockEvent> {
     const user = await User.findById(userId);
 
     if (user) {
-      user.isBlocked = isBlocked;
+      user.isBlocked = !isBlocked;
       await user.save();
       msg.ack();
     }

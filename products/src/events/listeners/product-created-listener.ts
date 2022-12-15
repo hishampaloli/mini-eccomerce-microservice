@@ -4,6 +4,7 @@ import { queueGroupName } from "./queue-group-name";
 import { Product } from "../../models/products";
 import { natsWrapper } from "../../nats-wrapper";
 
+
 export class ProductCreatedListener extends Listener<ProductCreatedEvent> {
   subject: Subject.ProductCreated = Subject.ProductCreated;
   queueGroupName = queueGroupName;

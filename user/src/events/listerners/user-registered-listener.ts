@@ -9,12 +9,11 @@ export class UserCreatedListener extends Listener<UserRegisteredEvent> {
   subject: Subject.UserRegistered = Subject.UserRegistered;
   queueGroupName = queueGroupName;
 
+
   async onMessage(data: UserRegisteredEvent["data"], msg: Message) {
     const { name, email, userId, version } = data;
 
-    // console.log(name);
-    // console.log(email);
-    // console.log(userId);
+    
 
     const user = User.build({
       address: "please add an address",
