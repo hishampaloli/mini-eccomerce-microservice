@@ -8,13 +8,20 @@ import buildClient from "../../api/buildClient";
 
 export const getProducts = (req: any) => async (dispatch: Dispatch<any>) => {
   try {
-    //   const { origin } = absoluteUrl(req);
+    
 
-    console.log("action>>>>>>>>>>>>>>>>>>>>..." );
-    
-    const { data } = await buildClient(req).get("/api/product/allProducts");
-    console.log(data)
-    
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await buildClient(req).get(
+      "/api/product/allProducts",
+      config
+    );
+
+    console.log(data);
 
     dispatch({
       type: ALL_PRODUCTS_SUCCESS,
@@ -22,7 +29,7 @@ export const getProducts = (req: any) => async (dispatch: Dispatch<any>) => {
     });
   } catch (error: any) {
     console.log(error.response);
-    
+
     dispatch({
       type: ALL_PRODUCTS_FAIL,
       payload: error.response.data,

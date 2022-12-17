@@ -25,8 +25,24 @@ const reducer = (state: any, action: any): any => {
   }
 };
 
+let initialState ={
+  user: { userInfo: "userInfoFromStorage" },
+};
+
+if (typeof window !== "undefined") {
+  const userInfoFromStorage = window.localStorage?.getItem("userInfo")
+    ? JSON.parse(window.localStorage?.getItem("userInfo"))
+    : null;
+
+  initialState = {
+    user: { userInfo: userInfoFromStorage },
+  };
+} else {
+  console.log("You are on the server");
+}
+
 const initStore = () => {
-  return createStore(reducer, bindMiddlware([thunk]));
+  return createStore(reducer, initialState, bindMiddlware([thunk]));
 };
 
 export const wrapper = createWrapper(initStore);
