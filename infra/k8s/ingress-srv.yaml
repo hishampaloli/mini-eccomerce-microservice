@@ -44,4 +44,11 @@ spec:
               service:
                 name: cart-srv
                 port:
-                  number: 3000                                                                                                
+                  number: 3000  
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 3000                                                                                                                      
