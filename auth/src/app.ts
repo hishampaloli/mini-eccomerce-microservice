@@ -10,6 +10,7 @@ import {
   NotFoundError,
   errorHandler,
 } from "@hpshops/common/build";
+import { signOutRouter } from "./routes/signout";
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(
 
 app.use(SignUpRouter);
 app.use(SignInRouter);
+app.use(signOutRouter)
 app.use(currentUserRoute);
 
 app.all("*", async (req, res) => {

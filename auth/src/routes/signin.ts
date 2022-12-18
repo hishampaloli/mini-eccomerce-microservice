@@ -19,7 +19,6 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-
     const { email, password } = req.body;
 
     const existingUser = await User.findOne({ email });
@@ -29,21 +28,25 @@ router.post(
     }
 
     const passwordsMatch = await Password.compare(
-        existingUser.password,
-        password
-      );
-  
-      if (!passwordsMatch) {
-        throw new BadRequestError("Invalid Credentials");
-      }
+      existingUser.password,
+      password
+    );
 
-      let token = generateToken(existingUser)
+    if (!passwordsMatch) {
+      throw new BadRequestError("Invalid Credentials");
+    }
 
-      res.json({
-        existingUser,
-        token
-      })
+    let token = generateToken(existingUser);
+
+    req.session = {
+      jwt: token,
+      userDetails: existingUser,
+    };
+
+    res.json({
+      existingUser,
+    });
   }
 );
 
-export {router as SignInRouter}
+export { router as SignInRouter };

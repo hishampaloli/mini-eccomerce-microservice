@@ -25,9 +25,7 @@ const reducer = (state: any, action: any): any => {
   }
 };
 
-let initialState ={
-  user: { userInfo: "userInfoFromStorage" },
-};
+let initialState: any;
 
 if (typeof window !== "undefined") {
   const userInfoFromStorage = window.localStorage?.getItem("userInfo")

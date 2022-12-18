@@ -4,6 +4,9 @@ import { useDispatch } from "react-redux";
 import { signUp } from "../../redux/actions/userActions";
 
 const SignUp = () => {
+
+  
+  
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");

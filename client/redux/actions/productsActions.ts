@@ -17,11 +17,13 @@ export const getProducts = (req: any) => async (dispatch: Dispatch<any>) => {
     };
 
     const { data } = await buildClient(req).get(
-      "/api/product/allProducts",
+      "/api/auth/currentuser",
       config
     );
 
     console.log(data);
+    console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&7");
+    
 
     dispatch({
       type: ALL_PRODUCTS_SUCCESS,

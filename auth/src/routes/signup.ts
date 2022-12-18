@@ -7,7 +7,6 @@ import { User } from "../models/users";
 import { UserRegisteredPublisher } from "../events/publishers/user-registered-publisher";
 import { natsWrapper } from "../nats-wrapper";
 
-
 const router = express.Router();
 
 router.post(
@@ -34,19 +33,22 @@ router.post(
     await user.save();
     const token: any = generateToken(user);
 
+
+    req.session = {
+      jwt: token,
+      userDetails: user,
+    };
+
     await new UserRegisteredPublisher(natsWrapper.client).publish({
-        userId: user.id,
-        email: user.email,
-        name: user.name,
-        version: 233
-      });
-      
+      userId: user.id,
+      email: user.email,
+      name: user.name,
+      version: 233,
+    });
 
     res.status(201).json({
       email,
-      password,
       name,
-      token,
     });
   }
 );

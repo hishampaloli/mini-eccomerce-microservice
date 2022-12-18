@@ -1,12 +1,12 @@
 import { SIGNUP_SUCCESS, SIGNUP_FAIL } from "../constants/userTypes";
 import buildClient from "../../api/buildClient";
 import { Dispatch } from "react";
+import nookies from "nookies";
 
 export const signUp =
   (req: any, email: string, name: string, password: string) =>
   async (dispatch: Dispatch<any>) => {
     try {
-        
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -17,9 +17,9 @@ export const signUp =
         { email, name, password },
         config
       );
-      
-      localStorage.setItem("userInfo", JSON.stringify(data));
+
       console.log(data);
+      localStorage.setItem("userInfo", JSON.stringify(data));
 
       dispatch({
         type: SIGNUP_SUCCESS,
@@ -34,3 +34,26 @@ export const signUp =
       });
     }
   };
+
+export const currentUser = (req: any) => async (dispatch: Dispatch<any>) => {
+  try {
+    const { data } = await buildClient(req).post("api/auth/signup");
+
+    console.log("()()()()()()()(");
+
+    console.log(data);
+
+    dispatch({
+      type: SIGNUP_SUCCESS,
+      payload: data,
+    });
+  } catch (error: any) {
+    console.log("EROREOROEOROE");
+
+    console.log(error.response);
+    dispatch({
+      type: SIGNUP_FAIL,
+      payload: error.response,
+    });
+  }
+};
