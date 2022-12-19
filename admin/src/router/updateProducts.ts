@@ -2,9 +2,9 @@ import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import {
   validateRequest,
-  protect,
   NotFoundError,
-  isOwner,
+  currentUser,
+  requireAuth,
   isAdmin,
   BadRequestError,
 } from "@hpshops/common";
@@ -16,8 +16,8 @@ const router = express.Router();
 
 router.put(
   "/api/admin/product/:productId",
-
-  protect,
+  currentUser,
+  requireAuth,
   isAdmin,
   async (req: Request, res: Response) => {
     try {

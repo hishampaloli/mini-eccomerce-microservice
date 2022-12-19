@@ -27,17 +27,22 @@ const reducer = (state: any, action: any): any => {
 
 let initialState: any;
 
-if (typeof window !== "undefined") {
-  const userInfoFromStorage = window.localStorage?.getItem("userInfo")
-    ? JSON.parse(window.localStorage?.getItem("userInfo"))
-    : null;
+// if (typeof window !== "undefined") {
+//   const userInfoFromStorage = window.localStorage?.getItem("userInfo")
+//     ? JSON.parse(window.localStorage?.getItem("userInfo"))
+//     : null;
 
-  initialState = {
-    user: { userInfo: userInfoFromStorage },
-  };
-} else {
-  console.log("You are on the server");
-}
+//   console.log("344444444444444444444");
+//   console.log(userInfoFromStorage);
+
+//   initialState = {
+//     user: { userInfo: userInfoFromStorage },
+//   };
+// } else {
+//   console.log("You are on the server");
+// }
+
+// console.log(initialState);
 
 const initStore = () => {
   return createStore(reducer, initialState, bindMiddlware([thunk]));

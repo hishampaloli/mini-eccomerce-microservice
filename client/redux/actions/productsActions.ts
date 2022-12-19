@@ -17,7 +17,7 @@ export const getProducts = (req: any) => async (dispatch: Dispatch<any>) => {
     };
 
     const { data } = await buildClient(req).get(
-      "/api/auth/currentuser",
+      "/api/product/allProducts",
       config
     );
 

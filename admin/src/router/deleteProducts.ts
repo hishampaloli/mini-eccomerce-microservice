@@ -2,9 +2,9 @@ import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import {
   validateRequest,
-  protect,
   NotFoundError,
-  isOwner,
+  currentUser,
+  requireAuth,
   isAdmin,
 } from "@hpshops/common";
 import { natsWrapper } from "../nats-wrapper";
@@ -15,8 +15,8 @@ const router = express.Router();
 
 router.delete(
   "/api/admin/product/:productId",
-
-  protect,
+  currentUser,
+  requireAuth,
   isAdmin,
   async (req: Request, res: Response) => {
     try {

@@ -20,22 +20,23 @@ const AllProducts = () => {
     <div>
       <h1>All Products</h1>
       <b>786</b>
-      {/* <h1>{products?.error?.errors && products?.error?.errors[0]?.message}</h1>
+      <h1>{products?.error?.errors && products?.error?.errors[0]?.message}</h1>
       <div>
         {products?.products?.map((el: any) => {
           return <h1>{el.title}</h1>;
         
         })}
-      </div> */}
+      </div>
     </div>
   );
 };
 
 
-AllProducts.getInitialProps = wrapper.getInitialPageProps(
-  (store) => async (context) => {
-   await store.dispatch(getProducts(context));
-    return {};
-  }
-);
+// AllProducts.getInitialProps = wrapper.getInitialPageProps(
+//   (store) => async (context) => {
+    
+//    await store.dispatch(getProducts(context));
+//     return {};
+//   }
+// );
 export default AllProducts;

@@ -2,9 +2,9 @@ import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import {
   validateRequest,
-  protect,
   NotFoundError,
-  isOwner,
+  currentUser,
+  requireAuth,
   isAdmin,
 } from "@hpshops/common";
 import { User } from "../models/user";
@@ -13,7 +13,9 @@ const router = express.Router();
 
 router.get(
   "/api/admin/allusers",
-  protect,
+  
+  currentUser,
+  requireAuth,
   isAdmin,
   async (req: Request, res: Response) => {
     const user = await User.find({});

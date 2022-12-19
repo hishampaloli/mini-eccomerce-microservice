@@ -1,22 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../redux/actions/userActions";
+import Router from "next/router";
 
 const SignUp = () => {
-
-  
-  
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const dispatch = useDispatch();
 
-  const user = useSelector(state => state)
+  const { user } = useSelector((state: any) => state.user);
 
-  console.log(user);
-  
+
+  useEffect(() => {
+    if (user?.id?.email) {
+       Router.push('/product/allProducts')
+    }
+  });
 
   const handleSignUp = (e: any) => {
     e.preventDefault();

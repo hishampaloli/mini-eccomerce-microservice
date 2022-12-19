@@ -35,14 +35,10 @@ export const signUp =
     }
   };
 
-export const currentUser = (req: any) => async (dispatch: Dispatch<any>) => {
+export const currentUser = (data: any) => async (dispatch: Dispatch<any>) => {
   try {
-    const { data } = await buildClient(req).post("api/auth/signup");
 
-    console.log("()()()()()()()(");
-
-    console.log(data);
-
+    console.log(data+"<><>");
     dispatch({
       type: SIGNUP_SUCCESS,
       payload: data,
@@ -50,7 +46,7 @@ export const currentUser = (req: any) => async (dispatch: Dispatch<any>) => {
   } catch (error: any) {
     console.log("EROREOROEOROE");
 
-    console.log(error.response);
+    console.log(error);
     dispatch({
       type: SIGNUP_FAIL,
       payload: error.response,

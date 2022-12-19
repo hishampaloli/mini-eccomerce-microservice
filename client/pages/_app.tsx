@@ -10,12 +10,27 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 
 MyApp.getInitialProps = wrapper.getInitialPageProps(
-  (store) => async (context) => {
-    console.log("APAPAPAPAPAPAPAPAPA");
+  (store) => async (appContext: any) => {
+    const client = buildClient(appContext.ctx);
+    console.log("***********************");
+    const { data } = await client.get("/api/auth/currentuser");
+    console.log(data);
     
-   await store.dispatch(currentUser(context));
-    return {};
+    store.dispatch(currentUser(data))
+    console.log("***********************");
+
+    let pageProps = {};
+
+    if (appContext.Component.getInitialProps) {
+      pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+    }
+
+    return {
+      pageProps,
+      ...data,
+    };
   }
 );
+
 
 export default wrapper.withRedux(MyApp);

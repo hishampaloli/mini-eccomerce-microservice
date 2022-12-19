@@ -2,6 +2,9 @@ import axios from "axios";
 
 const buildClient = ({ req }: { req: any }) => {
   if (typeof window === "undefined") {
+    
+    console.log("REQREQREQ");
+    
     return axios.create({
       baseURL:
         "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",

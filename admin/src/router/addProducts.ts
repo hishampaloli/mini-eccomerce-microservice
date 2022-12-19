@@ -2,9 +2,10 @@ import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import {
   validateRequest,
-  protect,
   NotFoundError,
-  isOwner,
+  BadRequestError,
+  currentUser,
+  requireAuth,
   isAdmin,
 } from "@hpshops/common";
 import { natsWrapper } from "../nats-wrapper";
@@ -37,7 +38,8 @@ router.post(
       .withMessage("Please provide a valid Image URL"),
   ],
   validateRequest,
-  protect,
+  currentUser,
+  requireAuth,
   isAdmin,
   async (req: Request, res: Response) => {
     try {
@@ -63,7 +65,9 @@ router.post(
       });
 
       res.json(product);
-    } catch (error) {}
+    } catch (error) {
+      
+    }
   }
 );
 

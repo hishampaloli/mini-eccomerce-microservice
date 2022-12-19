@@ -2,9 +2,9 @@ import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import {
   validateRequest,
-  protect,
   NotFoundError,
-  isOwner,
+  currentUser,
+  requireAuth,
   isAdmin,
 } from "@hpshops/common";
 import { User } from "../models/user";
@@ -15,7 +15,8 @@ const router = express.Router();
 
 router.patch(
   "/api/admin/block/:id",
-  protect,
+  currentUser,
+  requireAuth,
   isAdmin,
   async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -30,8 +31,8 @@ router.patch(
           userId: user.id,
           isBlocked: user.isBlocked,
         });
-      }else {
-        throw new NotFoundError()
+      } else {
+        throw new NotFoundError();
       }
 
       res.json(user);

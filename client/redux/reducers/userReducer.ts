@@ -1,7 +1,10 @@
 import { SIGNUP_FAIL, SIGNUP_SUCCESS } from "../constants/userTypes";
 
+
+
+
 export const userReducer = (
-  state = { },
+  state = {},
   action: any
 ) => {
   switch (action.type) {
