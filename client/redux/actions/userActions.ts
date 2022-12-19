@@ -1,7 +1,12 @@
-import { SIGNUP_SUCCESS, SIGNUP_FAIL } from "../constants/userTypes";
+import {
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL,
+  CLEAR_ERRORS,
+} from "../constants/userTypes";
 import buildClient from "../../api/buildClient";
 import { Dispatch } from "react";
 import nookies from "nookies";
+import Router from "next/router";
 
 export const signUp =
   (req: any, email: string, name: string, password: string) =>
@@ -25,23 +30,83 @@ export const signUp =
         type: SIGNUP_SUCCESS,
         payload: data,
       });
+      
+      Router.push('/')
     } catch (error: any) {
-      console.log(error.response.data);
+      console.log(error.response.data.errors);
 
       dispatch({
         type: SIGNUP_FAIL,
-        payload: error.response.data,
+        payload: error.response.data.errors,
       });
     }
   };
 
-export const currentUser = (data: any) => async (dispatch: Dispatch<any>) => {
+export const Login =
+  (req: any, email: string, password: string) =>
+  async (dispatch: Dispatch<any>) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await buildClient(req).post(
+        "api/auth/signin",
+        { email, password },
+        config
+      );
+
+      
+
+      dispatch({
+        type: SIGNUP_SUCCESS,
+        payload: data.existingUser,
+      });
+
+      
+      Router.push('/')
+    } catch (error: any) {
+      console.log(error.response.data.errors);
+
+      dispatch({
+        type: SIGNUP_FAIL,
+        payload: error.response.data.errors,
+      });
+    }
+  };
+
+  
+export const Logout = (req: any) => async (dispatch: Dispatch<any>) => {
   try {
 
-    console.log(data+"<><>");
+    const { data } = await buildClient(req).post(
+      "api/auth/signout",
+    );
+
+
     dispatch({
       type: SIGNUP_SUCCESS,
-      payload: data,
+      payload: null,
+    });
+    
+  } catch (error: any) {
+    console.log("EROREOROEOROE");
+
+    console.log(error);
+    dispatch({
+      type: SIGNUP_FAIL,
+      payload: error.response,
+    });
+  }
+};
+
+export const currentUser = (data: any) => async (dispatch: Dispatch<any>) => {
+  try {
+    console.log(data + "<><>");
+    dispatch({
+      type: SIGNUP_SUCCESS,
+      payload: data.id,
     });
   } catch (error: any) {
     console.log("EROREOROEOROE");
@@ -52,4 +117,10 @@ export const currentUser = (data: any) => async (dispatch: Dispatch<any>) => {
       payload: error.response,
     });
   }
+};
+
+export const clearErrors = () => async (dispatch: Dispatch<any>) => {
+  dispatch({
+    type: CLEAR_ERRORS,
+  });
 };

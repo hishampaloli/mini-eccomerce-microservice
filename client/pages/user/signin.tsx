@@ -1,12 +1,13 @@
+import Router from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { signUp,clearErrors } from "../../redux/actions/userActions";
-import Router from "next/router";
 import Layout from "../../components/layout/Layout";
+import { Login,clearErrors } from "../../redux/actions/userActions";
+import getSession from 'next-auth'
 import { toast } from "react-toastify";
 
-const SignUp = () => {
+const signin = () => {
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -18,17 +19,19 @@ const SignUp = () => {
   console.log(user);
   console.log(error);
 
-  const handleSignUp = (e: any) => {
+  const handleSignIn = (e: any) => {
     e.preventDefault();
-    dispatch<any>(signUp("", email, name, password));
+    dispatch<any>(Login("", email, password));
   };
 
   useEffect(() => {
+    console.log(3434343433443);
+    
     if (user?.email) {
       Router.push("/");
     }
     if (error) {
-      toast.success(error[0]?.message);
+      toast.success(error[0].message);
       dispatch<any>(clearErrors())
       console.log("1234");
     }
@@ -36,12 +39,11 @@ const SignUp = () => {
 
 
 
-
   return (
-    <Layout title={"Login"}>
+    <Layout title={"Register"}>
       <div>
-        <h1>Register</h1>
-        <form onSubmit={handleSignUp} style={{ display: "flex" }}>
+        <h1>Login</h1>
+        <form onSubmit={handleSignIn} style={{ display: "flex" }}>
           <input
             type="text"
             name=""
@@ -70,4 +72,6 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+
+
+export default signin;

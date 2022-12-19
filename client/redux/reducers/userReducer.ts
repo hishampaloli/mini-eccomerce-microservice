@@ -1,4 +1,4 @@
-import { SIGNUP_FAIL, SIGNUP_SUCCESS } from "../constants/userTypes";
+import { SIGNUP_FAIL, SIGNUP_SUCCESS,CLEAR_ERRORS } from "../constants/userTypes";
 
 
 
@@ -17,6 +17,11 @@ export const userReducer = (
       return {
         error: action.payload,
       };
+
+      case CLEAR_ERRORS:
+        return {
+          error: null,
+        };
 
     default:
       return state;

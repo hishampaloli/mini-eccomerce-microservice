@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import {
   validateRequest,
-  protect,
+  // protect,
   currentUser,
   requireAuth,
 } from "@hpshops/common";

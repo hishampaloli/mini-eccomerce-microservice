@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hpshops/common": "^1.0.32",
+    "@hpshops/common": "^1.0.38",
     "@types/cookie-session": "^2.0.44",
     "@types/jsonwebtoken": "^8.5.9",
     "body-parser": "^1.20.1",
