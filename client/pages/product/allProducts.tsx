@@ -7,7 +7,7 @@ import { wrapper } from "../../redux/store";
 import buildClient from "../../api/buildClient";
 
 const AllProducts = () => {
-  const products = useSelector((state: any) => state);
+  const { products, loading } = useSelector((state: any) => state.allProducts);
 
   console.log(products);
   const dispatch = useDispatch();
@@ -22,21 +22,18 @@ const AllProducts = () => {
       <b>786</b>
       <h1>{products?.error?.errors && products?.error?.errors[0]?.message}</h1>
       <div>
-        {products?.products?.map((el: any) => {
+        {products?.map((el: any) => {
           return <h1>{el.title}</h1>;
-        
         })}
       </div>
     </div>
   );
 };
 
-
-// AllProducts.getInitialProps = wrapper.getInitialPageProps(
-//   (store) => async (context) => {
-    
-//    await store.dispatch(getProducts(context));
-//     return {};
-//   }
-// );
+AllProducts.getInitialProps = wrapper.getInitialPageProps(
+  (store) => async (context) => {
+    await store.dispatch(getProducts(context));
+    return {};
+  }
+);
 export default AllProducts;
