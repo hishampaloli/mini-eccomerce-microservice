@@ -2,12 +2,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { Logout } from "../../redux/actions/userActions";
+import { Logout } from "../../redux/actions-created/userActions";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { AuthState } from "../../models/user";
+import { useActions } from "../../hooks/useAction";
 
-const Header = () => {
-  const { user } = useSelector((state: any) => state.user);
+const Header = (): JSX.Element => {
+  const { user }: AuthState = useTypedSelector((state) => state.user);
 
-  const dispatch = useDispatch();
+  const { Logout } = useActions();
 
   return (
     <div>
@@ -19,7 +22,7 @@ const Header = () => {
           <div>
             <button
               onClick={() => {
-                dispatch<any>(Logout(""));
+                Logout("");
               }}
             >
               <h2>Logout</h2>
@@ -41,7 +44,7 @@ const Header = () => {
           </div>
         ) : (
           <div>
-          <Link href={"/user/profile"}>Profile</Link>
+            <Link href={"/user/profile"}>Profile</Link>
             <Link href={"/user/cart"}>Cart</Link>
           </div>
         )}

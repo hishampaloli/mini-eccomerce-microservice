@@ -13,11 +13,16 @@ export interface SigninData {
 export interface UserAuthData {
     email: string,
     name: string,
+    isBlocked: boolean
     id: string
+}
+
+export interface ErrorState {
+    message: string
 }
 
 export interface AuthState {
     user: UserAuthData | null
-    error: string[] | null
+    error: ErrorState[] | null
     loading: boolean
 }

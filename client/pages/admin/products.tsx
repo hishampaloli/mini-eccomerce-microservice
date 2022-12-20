@@ -3,25 +3,30 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import ProductComponents from "../../components/products/ProductComponents";
-import { getProducts } from "../../redux/actions/productsActions";
+import { useActions } from "../../hooks/useAction";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { ProductData, ProductState } from "../../models/product";
+import { AuthState, UserAuthData } from "../../models/user";
+import { getProducts } from "../../redux/actions-created/productsActions";
 
-const products = () => {
-  const { products, loading } = useSelector((state: any) => state.allProducts);
-  const { user, error } = useSelector((state: any) => state.user);
+const products: React.FC = (): JSX.Element => {
+  const { products, loading }: ProductState = useTypedSelector(
+    (state) => state.allProducts
+  );
+  const { user }: AuthState = useTypedSelector((state) => state.user);
 
-  console.log(products);
-  const dispatch = useDispatch();
+  const { getProducts } = useActions();
 
   useEffect(() => {
     if (user?.email !== "admin@gmail.com") {
       Router.push("/");
     }
-    dispatch<any>(getProducts("sdf"));
+    getProducts("sdf");
   }, []);
 
   return (
     <div>
-      {products.map((el: any) => {
+      {products.map((el: ProductData) => {
         return <ProductComponents key={el.id} product={el} />;
       })}
     </div>

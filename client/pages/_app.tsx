@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { wrapper } from "../redux/store";
 import buildClient from "../api/buildClient";
-import { currentUser } from "../redux/actions/userActions";
+import { currentUser } from "../redux/actions-created/userActions";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;

@@ -3,41 +3,39 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Layout from "../../components/layout/Layout";
-import { Login,clearErrors } from "../../redux/actions/userActions";
-import getSession from 'next-auth'
+import { Login, clearErrors } from "../../redux/actions-created/userActions";
+import getSession from "next-auth";
 import { toast } from "react-toastify";
+import { RootState } from "../../redux/reducers/reducers";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { AuthState } from "../../models/user";
+import { SingInAction } from "../../redux/action-models";
+import { useActions } from "../../hooks/useAction";
 
-const signin = () => {
+const signin: React.FC = () => {
   const [email, setEmail] = useState<string>("");
-  const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const dispatch = useDispatch();
+  const { Login, clearErrors } = useActions();
 
-  const { user, error } = useSelector((state: any) => state.user);
+  const { user, error }: AuthState = useTypedSelector((state) => state.user);
 
-  console.log(user);
-  console.log(error);
-
-  const handleSignIn = (e: any) => {
+  const handleSignIn = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch<any>(Login("", {email, password}));
+    Login("", { email, password });
   };
 
   useEffect(() => {
-    console.log(3434343433443);
-    
     if (user?.email) {
       Router.push("/");
     }
+    
     if (error) {
       toast.success(error[0].message);
-      dispatch<any>(clearErrors())
+      clearErrors();
       console.log("1234");
     }
   }, [error]);
-
-
 
   return (
     <Layout title={"Register"}>
@@ -45,23 +43,20 @@ const signin = () => {
         <h1>Login</h1>
         <form onSubmit={handleSignIn} style={{ display: "flex" }}>
           <input
-            type="text"
-            name=""
-            onChange={(e) => setName(e.target.value)}
-            placeholder="name"
-            id=""
-          />
-          <input
             type="email"
             name=""
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
             placeholder="email"
             id=""
           />
           <input
             type="text"
             name=""
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
             placeholder="password"
             id=""
           />
@@ -71,7 +66,5 @@ const signin = () => {
     </Layout>
   );
 };
-
-
 
 export default signin;

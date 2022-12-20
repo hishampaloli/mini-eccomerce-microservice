@@ -1,3 +1,5 @@
+import { ErrorState } from "./user";
+
 export interface ProductData {
   description: string;
   id: string;
@@ -10,6 +12,6 @@ export interface ProductData {
 
 export interface ProductState {
     products: ProductData[] | []
-    error: string[] | null
+    error: ErrorState[] | null
     loading: boolean
 }

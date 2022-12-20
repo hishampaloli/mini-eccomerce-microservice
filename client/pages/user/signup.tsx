@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { signUp, clearErrors } from "../../redux/actions/userActions";
+import { signUp, clearErrors } from "../../redux/actions-created/userActions";
 import Router from "next/router";
 import Layout from "../../components/layout/Layout";
 import { toast } from "react-toastify";
+import { AuthState } from "../../models/user";
+import { useActions } from "../../hooks/useAction";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { signUp, clearErrors } = useActions();
 
-  const dispatch = useDispatch();
+  const { user, error }: AuthState = useTypedSelector((state) => state.user);
 
-  const { user, error } = useSelector((state: any) => state.user);
-
-  console.log(user);
-  console.log(error);
-
-  const handleSignUp = (e: any) => {
+  const handleSignUp = (e: React.SyntheticEvent): void => {
     e.preventDefault();
-    dispatch<any>(signUp("", { name, email, password }));
+    signUp("", { name, email, password });
   };
 
   useEffect(() => {
@@ -29,8 +28,7 @@ const SignUp = () => {
     }
     if (error) {
       toast.success(error[0]?.message);
-      dispatch<any>(clearErrors());
-      console.log("1234");
+      clearErrors();
     }
   }, [error]);
 
@@ -42,21 +40,27 @@ const SignUp = () => {
           <input
             type="text"
             name=""
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
             placeholder="name"
             id=""
           />
           <input
             type="email"
             name=""
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
             placeholder="email"
             id=""
           />
           <input
             type="text"
             name=""
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
             placeholder="password"
             id=""
           />

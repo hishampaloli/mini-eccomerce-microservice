@@ -10,20 +10,21 @@ const Layout = ({
   title = "Book Best Hotels for your Holiday",
 }: {
   children: any;
-  title: any;
+  title: string;
 }) => {
-  return <div>
-    <Head>
-    <title>{title}</title>
+  return (
+    <div>
+      <Head>
+        <title>{title}</title>
         <meta charSet="utf-8" />{" "}
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
-    
-    <Header />
-      <ToastContainer  position="bottom-right" />
-    {children}
+      </Head>
 
-  </div>;
+      <Header />
+      <ToastContainer position="bottom-right" />
+      {children}
+    </div>
+  );
 };
 
 export default Layout;

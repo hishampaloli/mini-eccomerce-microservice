@@ -1,9 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { blockUser } from "../../redux/actions/adminAction";
+import { useActions } from "../../hooks/useAction";
+import { UserAuthData } from "../../models/user";
+import { blockUser } from "../../redux/actions-created/adminAction";
 
-const Users = ({ user }: { user: any }) => {
-  const dispatch = useDispatch();
+const Users = ({ user }: { user: UserAuthData }): JSX.Element => {
+  const { blockUser } = useActions();
   return (
     <div style={{ display: "flex", border: "1px" }}>
       <h1>{user.name}</h1>
@@ -11,7 +13,7 @@ const Users = ({ user }: { user: any }) => {
       <h3>isBlocked{user.isBlocked ? "true" : "false"}</h3>
       <button
         onClick={() => {
-          dispatch<any>(blockUser("", user.id));
+          blockUser("", user.id);
         }}
       >
         IsBlocked

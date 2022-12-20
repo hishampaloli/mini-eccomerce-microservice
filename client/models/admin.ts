@@ -1,7 +1,7 @@
-import { UserAuthData } from "./user";
+import { ErrorState, UserAuthData } from "./user";
 
 export interface AllUsersState {
-  error: string[] | null;
+  error: ErrorState[] | null;
   loading: boolean;
   users: UserAuthData[] | [];
 }

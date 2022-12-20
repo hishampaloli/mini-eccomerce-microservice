@@ -4,24 +4,25 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Users from "../../components/admin/Users";
 import Layout from "../../components/layout/Layout";
-import { getAllUsers } from "../../redux/actions/adminAction";
+import { useActions } from "../../hooks/useAction";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { AllUsersState } from "../../models/admin";
+import { AuthState } from "../../models/user";
+import { getAllUsers } from "../../redux/actions-created/adminAction";
 
-const index = () => {
-  const dispatch = useDispatch();
+const index: React.FC = (): JSX.Element => {
+  const { getAllUsers } = useActions();
 
-  const { user, error } = useSelector((state: any) => state.user);
-  const { users } = useSelector((state: any) => state.allUsers);
-
-  console.log(users);
+  const { user }: AuthState = useTypedSelector((state) => state.user);
+  const { users }: AllUsersState = useTypedSelector((state) => state.allUsers);
 
   useEffect(() => {
-    console.log(3434343433443);
-    dispatch<any>(getAllUsers(""));
-
+    getAllUsers("");
     if (user?.email !== "admin@gmail.com") {
       Router.push("/");
     }
   }, []);
+
   return (
     <div>
       <Layout title={"Admin"}>
