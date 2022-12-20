@@ -2,33 +2,34 @@ import { AdminActionTypes } from "../constants/adminTypes";
 import { Dispatch } from "react";
 import axios from "axios";
 import buildClient from "../../api/buildClient";
+import { AllUsersAction } from "../action-models/index";
+import { UserAuthData } from "../../models/user";
 
-export const getAllUsers = (req: any) => async (dispatch: Dispatch<any>) => {
-  try {
+export const getAllUsers =
+  (req: any) => async (dispatch: Dispatch<AllUsersAction>) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
 
-    const { data } = await buildClient(req).get("/api/admin/allusers", config);
+    try {
+      const { data } = await buildClient(req).get<UserAuthData[]>(
+        "/api/admin/allusers",
+        config
+      );
 
-    console.log(data);
-    console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&7");
-
-    dispatch({
-      type: AdminActionTypes.ALL_USERS_SUCCESS,
-      payload: data,
-    });
-  } catch (error: any) {
-    console.log(error.response);
-
-    dispatch({
-      type: AdminActionTypes.ALL_USERS_FAIL,
-      payload: error.response.data,
-    });
-  }
-};
+      dispatch({
+        type: AdminActionTypes.ALL_USERS_SUCCESS,
+        payload: data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: AdminActionTypes.ALL_USERS_FAIL,
+        payload: error.response.data,
+      });
+    }
+  };
 
 export const blockUser =
   (req: any, id: string) => async (dispatch: Dispatch<any>, getState: any) => {
@@ -43,7 +44,6 @@ export const blockUser =
         `/api/admin/block/${id}/`,
         config
       );
-
 
       const user = getState().allUsers.users.find((el: any) => {
         return el.id === id;

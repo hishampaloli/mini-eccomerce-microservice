@@ -4,7 +4,7 @@ import { Dispatch } from "react";
 import nookies from "nookies";
 import Router from "next/router";
 import { SigninData, SignUnData, UserAuthData } from "../../models/user";
-import { SignupAction, SingInAction } from "../action-models/userAction";
+import { SignupAction, SingInAction } from "../action-models/index";
 
 export const signUp =
   (req: any, signupData: SignUnData) =>
@@ -90,7 +90,7 @@ export const Logout = (req: any) => async (dispatch: Dispatch<any>) => {
 export const currentUser = (data: any) => async (dispatch: Dispatch<any>) => {
   try {
     console.log(data);
-    
+
     dispatch({
       type: UserActionsTypes.SIGNUP_SUCCESS,
       payload: data.id,

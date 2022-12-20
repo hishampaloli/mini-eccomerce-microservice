@@ -1,34 +1,31 @@
 import { ProductTypes } from "../constants/productsTypes";
 import { Dispatch } from "react";
-import axios from "axios";
 import buildClient from "../../api/buildClient";
+import { GetAllProductsAction } from "../action-models/index";
+import { ProductData } from "../../models/product";
 
-export const getProducts = (req: any) => async (dispatch: Dispatch<any>) => {
-  try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+export const getProducts =
+  (req: any) => async (dispatch: Dispatch<GetAllProductsAction>) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-    const { data } = await buildClient(req).get(
-      "/api/product/allProducts",
-      config
-    );
+      const { data } = await buildClient(req).get<ProductData[]>(
+        "/api/product/allProducts",
+        config
+      );
 
-    console.log(data);
-    console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&7");
-
-    dispatch({
-      type: ProductTypes.ALL_PRODUCTS_SUCCESS,
-      payload: data,
-    });
-  } catch (error: any) {
-    console.log(error.response);
-
-    dispatch({
-      type: ProductTypes.ALL_PRODUCTS_FAIL,
-      payload: error.response.data,
-    });
-  }
-};
+      dispatch({
+        type: ProductTypes.ALL_PRODUCTS_SUCCESS,
+        payload: data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: ProductTypes.ALL_PRODUCTS_FAIL,
+        payload: error.response.data,
+      });
+    }
+  };

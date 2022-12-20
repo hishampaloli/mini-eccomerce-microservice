@@ -1,14 +1,14 @@
 import { UserAuthData } from "../../models/user";
-import { UserActionsTypes } from "../constants/userTypes";
+import { UserActionsTypes } from "../constants/index";
 
 interface UserSignUpSuccessAction {
   type: UserActionsTypes.SIGNUP_SUCCESS;
-  payload: UserAuthData
+  payload: UserAuthData;
 }
 
 interface UserSignUpFailAction {
   type: UserActionsTypes.SIGNUP_FAIL;
-  payload: any
+  payload: any;
 }
 
 export type SignupAction = UserSignUpSuccessAction | UserSignUpFailAction;

@@ -1,5 +1,5 @@
 import { AuthState } from "../../models/user";
-import { UserActionsTypes } from "../constants/userTypes";
+import { UserActionsTypes } from "../constants/index";
 
 export const userReducer = (
   state: AuthState = { loading: false, error: null, user: null },
