@@ -1,15 +1,10 @@
-import {
-  ALL_PRODUCTS_FAIL,
-  ALL_PRODUCTS_SUCCESS,
-} from "../constants/productsTypes";
+import { ProductTypes } from "../constants/productsTypes";
 import { Dispatch } from "react";
 import axios from "axios";
 import buildClient from "../../api/buildClient";
 
 export const getProducts = (req: any) => async (dispatch: Dispatch<any>) => {
   try {
-    
-
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -23,17 +18,16 @@ export const getProducts = (req: any) => async (dispatch: Dispatch<any>) => {
 
     console.log(data);
     console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&7");
-    
 
     dispatch({
-      type: ALL_PRODUCTS_SUCCESS,
+      type: ProductTypes.ALL_PRODUCTS_SUCCESS,
       payload: data,
     });
   } catch (error: any) {
     console.log(error.response);
 
     dispatch({
-      type: ALL_PRODUCTS_FAIL,
+      type: ProductTypes.ALL_PRODUCTS_FAIL,
       payload: error.response.data,
     });
   }

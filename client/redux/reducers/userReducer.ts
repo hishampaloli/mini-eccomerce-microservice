@@ -1,27 +1,31 @@
-import { SIGNUP_FAIL, SIGNUP_SUCCESS,CLEAR_ERRORS } from "../constants/userTypes";
-
-
-
+import { AuthState } from "../../models/user";
+import { UserActionsTypes } from "../constants/userTypes";
 
 export const userReducer = (
-  state = {},
+  state: AuthState = { loading: false, error: null, user: null },
   action: any
-) => {
+): AuthState => {
   switch (action.type) {
-    case SIGNUP_SUCCESS:
+    case UserActionsTypes.SIGNUP_SUCCESS:
       return {
         user: action.payload,
+        loading: false,
+        error: null,
       };
 
-    case SIGNUP_FAIL:
+    case UserActionsTypes.SIGNUP_FAIL:
       return {
         error: action.payload,
+        loading: false,
+        user: null,
       };
 
-      case CLEAR_ERRORS:
-        return {
-          error: null,
-        };
+    case UserActionsTypes.CLEAR_ERRORS:
+      return {
+        error: null,
+        loading: false,
+        user: null,
+      };
 
     default:
       return state;

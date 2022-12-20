@@ -21,7 +21,7 @@ const signin = () => {
 
   const handleSignIn = (e: any) => {
     e.preventDefault();
-    dispatch<any>(Login("", email, password));
+    dispatch<any>(Login("", {email, password}));
   };
 
   useEffect(() => {

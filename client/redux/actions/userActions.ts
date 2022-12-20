@@ -1,73 +1,66 @@
-import {
-  SIGNUP_SUCCESS,
-  SIGNUP_FAIL,
-  CLEAR_ERRORS,
-} from "../constants/userTypes";
+import { UserActionsTypes } from "../constants/userTypes";
 import buildClient from "../../api/buildClient";
 import { Dispatch } from "react";
 import nookies from "nookies";
 import Router from "next/router";
+import { SigninData, SignUnData, UserAuthData } from "../../models/user";
+import { SignupAction, SingInAction } from "../action-models/userAction";
 
 export const signUp =
-  (req: any, email: string, name: string, password: string) =>
-  async (dispatch: Dispatch<any>) => {
+  (req: any, signupData: SignUnData) =>
+  async (dispatch: Dispatch<SignupAction>) => {
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await buildClient(req).post(
+      const { data } = await buildClient(req).post<UserAuthData>(
         "api/auth/signup",
-        { email, name, password },
+        signupData,
         config
       );
 
       console.log(data);
-      localStorage.setItem("userInfo", JSON.stringify(data));
 
       dispatch({
-        type: SIGNUP_SUCCESS,
+        type: UserActionsTypes.SIGNUP_SUCCESS,
         payload: data,
       });
 
       Router.push("/");
     } catch (error: any) {
-      console.log(error.response.data.errors);
-
       dispatch({
-        type: SIGNUP_FAIL,
+        type: UserActionsTypes.SIGNUP_FAIL,
         payload: error.response.data.errors,
       });
     }
   };
 
 export const Login =
-  (req: any, email: string, password: string) =>
-  async (dispatch: Dispatch<any>) => {
+  (req: any, LoginData: SigninData) =>
+  async (dispatch: Dispatch<SingInAction>) => {
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await buildClient(req).post(
+      const { data: existingUser } = await buildClient(req).post<UserAuthData>(
         "api/auth/signin",
-        { email, password },
+        LoginData,
         config
       );
 
       dispatch({
-        type: SIGNUP_SUCCESS,
-        payload: data.existingUser,
+        type: UserActionsTypes.SIGNUP_SUCCESS,
+        payload: existingUser,
       });
 
       Router.push("/");
     } catch (error: any) {
-      console.log(error.response.data.errors);
-
       dispatch({
-        type: SIGNUP_FAIL,
+        type: UserActionsTypes.SIGNUP_FAIL,
         payload: error.response.data.errors,
       });
     }
@@ -80,7 +73,7 @@ export const Logout = (req: any) => async (dispatch: Dispatch<any>) => {
     Router.push("/");
 
     dispatch({
-      type: SIGNUP_SUCCESS,
+      type: UserActionsTypes.SIGNUP_SUCCESS,
       payload: null,
     });
   } catch (error: any) {
@@ -88,7 +81,7 @@ export const Logout = (req: any) => async (dispatch: Dispatch<any>) => {
 
     console.log(error);
     dispatch({
-      type: SIGNUP_FAIL,
+      type: UserActionsTypes.SIGNUP_FAIL,
       payload: error.response,
     });
   }
@@ -96,9 +89,10 @@ export const Logout = (req: any) => async (dispatch: Dispatch<any>) => {
 
 export const currentUser = (data: any) => async (dispatch: Dispatch<any>) => {
   try {
-    console.log(data + "<><>");
+    console.log(data);
+    
     dispatch({
-      type: SIGNUP_SUCCESS,
+      type: UserActionsTypes.SIGNUP_SUCCESS,
       payload: data.id,
     });
   } catch (error: any) {
@@ -106,7 +100,7 @@ export const currentUser = (data: any) => async (dispatch: Dispatch<any>) => {
 
     console.log(error);
     dispatch({
-      type: SIGNUP_FAIL,
+      type: UserActionsTypes.SIGNUP_FAIL,
       payload: error.response,
     });
   }
@@ -114,6 +108,6 @@ export const currentUser = (data: any) => async (dispatch: Dispatch<any>) => {
 
 export const clearErrors = () => async (dispatch: Dispatch<any>) => {
   dispatch({
-    type: CLEAR_ERRORS,
+    type: UserActionsTypes.CLEAR_ERRORS,
   });
 };

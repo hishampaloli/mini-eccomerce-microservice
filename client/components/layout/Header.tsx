@@ -35,7 +35,7 @@ const Header = () => {
       </div>
 
       <div>
-        {user.email === "admin@gmail.com" ? (
+        {user?.email === "admin@gmail.com" ? (
           <div>
             <Link href={"/admin/products"}>Manage Product</Link>
           </div>

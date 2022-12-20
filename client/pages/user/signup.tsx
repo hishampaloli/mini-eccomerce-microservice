@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { signUp,clearErrors } from "../../redux/actions/userActions";
+import { signUp, clearErrors } from "../../redux/actions/userActions";
 import Router from "next/router";
 import Layout from "../../components/layout/Layout";
 import { toast } from "react-toastify";
@@ -20,7 +20,7 @@ const SignUp = () => {
 
   const handleSignUp = (e: any) => {
     e.preventDefault();
-    dispatch<any>(signUp("", email, name, password));
+    dispatch<any>(signUp("", { name, email, password }));
   };
 
   useEffect(() => {
@@ -29,13 +29,10 @@ const SignUp = () => {
     }
     if (error) {
       toast.success(error[0]?.message);
-      dispatch<any>(clearErrors())
+      dispatch<any>(clearErrors());
       console.log("1234");
     }
   }, [error]);
-
-
-
 
   return (
     <Layout title={"Login"}>

@@ -1,18 +1,17 @@
-import { ALL_USERS_FAIL, ALL_USERS_SUCCESS } from "../constants/adminTypes";
+import { AdminActionTypes } from "../constants/adminTypes";
 
 export const allUsersReducer = (
   state = { products: [], loading: false },
   action: any
 ) => {
   switch (action.type) {
-
-    case ALL_USERS_SUCCESS:
+    case AdminActionTypes.ALL_USERS_SUCCESS:
       return {
         loading: true,
         users: action.payload,
       };
 
-    case ALL_USERS_FAIL:
+    case AdminActionTypes.ALL_USERS_FAIL:
       return {
         error: action.payload,
       };
