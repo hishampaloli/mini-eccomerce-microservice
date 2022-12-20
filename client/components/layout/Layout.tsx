@@ -5,6 +5,7 @@ import Header from "./Header";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const Layout = ({
   children,
   title = "Book Best Hotels for your Holiday",

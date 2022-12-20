@@ -66,6 +66,7 @@ router.post(
 
       res.json(product);
     } catch (error) {
+    
       
     }
   }

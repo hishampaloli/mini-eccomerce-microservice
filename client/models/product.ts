@@ -9,9 +9,14 @@ export interface ProductData {
   title: string;
 }
 
-
 export interface ProductState {
-    products: ProductData[] | []
-    error: ErrorState[] | null
-    loading: boolean
+  products: ProductData[] | [];
+  error: ErrorState[] | null;
+  loading: boolean;
+}
+
+export interface ViewProductState {
+  product: ProductData | null;
+  error: ErrorState[] | null;
+  loading: boolean;
 }

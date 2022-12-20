@@ -1,35 +1,45 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
-import Layout from '../components/layout/Layout'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import Router from 'next/router'
+import { Inter } from "@next/font/google";
+import Layout from "../components/layout/Layout";
+import { wrapper } from "../redux";
+import { useEffect } from "react";
+import Router from "next/router";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { AuthState } from "../models/user";
+import { ProductState } from "../models/product";
+import ProductComponents from "../components/products/ProductComponents";
+import { getProducts } from "../redux/actions-created";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const dispatch = useDispatch();
 
-  const { user, error } = useSelector((state: any) => state.user);
-
-  console.log(user);
-  console.log(error);
+  const { user, error }: AuthState = useTypedSelector((state) => state.user);
+  const { products }: ProductState = useTypedSelector(
+    (state) => state.allProducts
+  );
 
   useEffect(() => {
-    console.log(3434343433443);
-
     if (user?.email === "admin@gmail.com") {
       Router.push("/admin");
     }
   }, []);
   return (
     <>
-     <Layout title={"Shopit"} >
-<h1>yguhbsdmn</h1>
-     </Layout>
+      <Layout title={"Shopit"}>
+        <div>
+          {products.map((el: any) => {
+            return <ProductComponents product={el} key={el.id} />;
+          })}
+        </div>
+      </Layout>
     </>
-  )
+  );
 }
+
+
+Home.getInitialProps = wrapper.getInitialPageProps(
+  (store) => async (context) => {
+    await store.dispatch(getProducts(context));
+    return {};
+  }
+);

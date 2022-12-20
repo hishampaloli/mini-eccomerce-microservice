@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { body, validationResult } from "express-validator";
+import { body, validationResult, param } from "express-validator";
 import {
   validateRequest,
   protect,
@@ -11,15 +11,19 @@ import { Product } from "../models/products";
 
 const router = express.Router();
 
-router.get("/api/product/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
+router.get(
+  "/api/product/:id",
+  [param("id").isMongoId().withMessage("Invalid URL")],
+  validateRequest,
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-  
-  const product = await Product.findById(id);
+    const product = await Product.findById(id);
 
-  if (!product) throw new NotFoundError()
+    if (!product) throw new NotFoundError();
 
-  res.json(product);
-});
+    res.json(product);
+  }
+);
 
 export { router as getSingleProductsRouter };

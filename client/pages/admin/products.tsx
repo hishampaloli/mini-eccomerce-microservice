@@ -2,6 +2,7 @@ import Router from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import Layout from "../../components/layout/Layout";
 import ProductComponents from "../../components/products/ProductComponents";
 import { useActions } from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -25,11 +26,19 @@ const products: React.FC = (): JSX.Element => {
   }, []);
 
   return (
-    <div>
-      {products.map((el: ProductData) => {
-        return <ProductComponents key={el.id} product={el} />;
-      })}
-    </div>
+    <Layout title="Manage Product">
+      <div>
+        <div>
+          {products.map((el: ProductData) => {
+            return <ProductComponents key={el.id} product={el} />;
+          })}
+        </div>
+
+        <div>
+            
+        </div>
+      </div>
+    </Layout>
   );
 };
 
