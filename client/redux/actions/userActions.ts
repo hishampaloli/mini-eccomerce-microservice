@@ -30,8 +30,8 @@ export const signUp =
         type: SIGNUP_SUCCESS,
         payload: data,
       });
-      
-      Router.push('/')
+
+      Router.push("/");
     } catch (error: any) {
       console.log(error.response.data.errors);
 
@@ -57,15 +57,12 @@ export const Login =
         config
       );
 
-      
-
       dispatch({
         type: SIGNUP_SUCCESS,
         payload: data.existingUser,
       });
 
-      
-      Router.push('/')
+      Router.push("/");
     } catch (error: any) {
       console.log(error.response.data.errors);
 
@@ -76,20 +73,16 @@ export const Login =
     }
   };
 
-  
 export const Logout = (req: any) => async (dispatch: Dispatch<any>) => {
   try {
+    const { data } = await buildClient(req).post("api/auth/signout");
 
-    const { data } = await buildClient(req).post(
-      "api/auth/signout",
-    );
-
+    Router.push("/");
 
     dispatch({
       type: SIGNUP_SUCCESS,
       payload: null,
     });
-    
   } catch (error: any) {
     console.log("EROREOROEOROE");
 

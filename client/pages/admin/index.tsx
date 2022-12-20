@@ -10,10 +10,10 @@ const index = () => {
   const dispatch = useDispatch();
 
   const { user, error } = useSelector((state: any) => state.user);
-  const allusers = useSelector((state: any) => state)
+  const { users } = useSelector((state: any) => state.allUsers);
 
-  console.log(allusers);
-  
+  console.log(users);
+
   useEffect(() => {
     console.log(3434343433443);
     dispatch<any>(getAllUsers(""));
@@ -26,7 +26,9 @@ const index = () => {
     <div>
       <Layout title={"Admin"}>
         <h1>Admin</h1>
-        <Users />
+        {users?.map((el: any) => {
+          return <Users user={el} />;
+        })}
       </Layout>
     </div>
   );

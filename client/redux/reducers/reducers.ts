@@ -6,7 +6,7 @@ import { allUsersReducer } from "./adminReducer";
 const reducers = combineReducers({
   allProducts: allProductsReducer,
   user: userReducer,
-  allUsers: allProductsReducer,
+  allUsers: allUsersReducer,
 });
 
 export default reducers;

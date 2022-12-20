@@ -19,7 +19,7 @@ const Header = () => {
           <div>
             <button
               onClick={() => {
-                dispatch<any>(Logout(''));
+                dispatch<any>(Logout(""));
               }}
             >
               <h2>Logout</h2>
@@ -30,6 +30,19 @@ const Header = () => {
           <div>
             <Link href={"/user/signup"}>signUp</Link>
             <Link href={"/user/signin"}>Login</Link>
+          </div>
+        )}
+      </div>
+
+      <div>
+        {user.email === "admin@gmail.com" ? (
+          <div>
+            <Link href={"/admin/products"}>Manage Product</Link>
+          </div>
+        ) : (
+          <div>
+          <Link href={"/user/profile"}>Profile</Link>
+            <Link href={"/user/cart"}>Cart</Link>
           </div>
         )}
       </div>
