@@ -1,0 +1,60 @@
+.profileBox {
+  display: flex;
+  margin: 30px 50px;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .profileDiv {
+    width: 500px;
+    padding: 15px;
+    margin: 20px;
+    border-radius: 5px;
+    background-color: rgb(239, 239, 239);
+
+    p {
+      font-size: medium;
+      padding: 15px;
+      margin-top: 10px;
+      background-color: white;
+      border-radius: 5px;
+    }
+  }
+
+  form {
+    width: 500px;
+    padding: 15px;
+    margin: 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(239, 239, 239);
+
+    div {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      input {
+        padding: 15px;
+        background-color: white;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+        margin-top: 7px;
+      }
+    }
+  }
+
+  button {
+    padding: 15px;
+    background-color: rgb(24, 30, 29);
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    margin-top: 10px;
+    color: white;
+    font-weight: bolder;
+    font-size: larger;
+  }
+}

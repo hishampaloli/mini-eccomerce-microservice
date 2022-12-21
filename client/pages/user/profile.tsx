@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import Layout from "../../components/layout/Layout";
 import { useActions } from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import styles from "../../styles/Profile.module.scss";
 
 const profile = () => {
   const { user } = useTypedSelector((state) => state.user);
@@ -27,17 +28,29 @@ const profile = () => {
 
   return (
     <Layout title={`Welcome ${user?.name && user.name}`}>
-      <div>
-        <div>
-          <h1>{user?.email}</h1>
-          <h1>{user?.name}</h1>
-          <h1>{user?.address}</h1>
+      <div className={styles.profileBox}>
+        <div className={styles.profileDiv}>
+          <h2 style={{ textAlign: "center" }}>My Profile</h2>
+          <p>
+            {" "}
+            <strong>Email: </strong> {user?.email}
+          </p>
+          <p>
+            <strong>Name: </strong> {user?.name}
+          </p>
+          <p>
+            <strong>Adress: </strong> {user?.address}
+          </p>
 
-          <button onClick={() => setEdit(!edit)}>edit</button>
+          <button style={{ marginTop: "30px" }} onClick={() => setEdit(!edit)}>
+            Edit
+          </button>
         </div>
-        <div>
-          {edit && (
-            <form onSubmit={handleUpdate}>
+        {edit && (
+          <form onSubmit={handleUpdate}>
+            <h2 style={{ textAlign: "center" }}>Change Details</h2>
+            <div>
+              <label htmlFor="">Address</label>
               <input
                 type="text"
                 placeholder={user?.address}
@@ -45,7 +58,10 @@ const profile = () => {
                   setAddress(e.target.value)
                 }
               />
+            </div>
 
+            <div>
+              <label htmlFor="">Image URL</label>
               <input
                 type="text"
                 placeholder={user?.image}
@@ -53,10 +69,12 @@ const profile = () => {
                   setImage(e.target.value)
                 }
               />
-              <button type="submit">Update</button>
-            </form>
-          )}
-        </div>
+            </div>
+            <button style={{ marginTop: "20px" }} type="submit">
+              Update
+            </button>
+          </form>
+        )}
       </div>
     </Layout>
   );

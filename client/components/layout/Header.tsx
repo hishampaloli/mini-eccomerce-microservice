@@ -16,7 +16,9 @@ const Header = (): JSX.Element => {
   return (
     <div className={style.header}>
       <div>
-        <h1>SHOPIT</h1>
+        <Link href="/">
+          <h1>SHOPIT</h1>
+        </Link>
       </div>
       <div className={style.right}>
         {user?.email ? (
