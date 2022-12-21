@@ -21,7 +21,11 @@ router.post(
     const { userId } = req.params;
     const { address, image } = req.body;
 
-    const user = await User.findByIdAndUpdate(userId, { address, image });
+    const user = await User.findByIdAndUpdate(userId, req.body, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
 
     if (user) {
       // if (address) {
@@ -31,7 +35,7 @@ router.post(
       //   user.image = image;
       // }
 
-      // await user.save();
+      await user.save();
 
       await new ProfileUpdatedPublisher(natsWrapper.client).publish({
         userId: user.id,
