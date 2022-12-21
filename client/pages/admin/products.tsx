@@ -2,6 +2,7 @@ import Router from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import AddProduct from "../../components/admin/AddProduct";
 import Layout from "../../components/layout/Layout";
 import ProductComponents from "../../components/products/ProductComponents";
 import { useActions } from "../../hooks/useAction";
@@ -27,7 +28,7 @@ const products: React.FC = (): JSX.Element => {
 
   return (
     <Layout title="Manage Product">
-      <div>
+      <div style={{display: 'flex'}}>
         <div>
           {products.map((el: ProductData) => {
             return <ProductComponents key={el.id} product={el} />;
@@ -35,7 +36,7 @@ const products: React.FC = (): JSX.Element => {
         </div>
 
         <div>
-            
+            <AddProduct />
         </div>
       </div>
     </Layout>

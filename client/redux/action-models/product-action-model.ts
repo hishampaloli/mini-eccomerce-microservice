@@ -28,3 +28,7 @@ interface ViewProductFailAction {
 export type ViewProductAction =
   | ViewProductSuccessAction
   | ViewProductFailAction;
+
+export type AddNewProductAction =
+  | GetAllProductsSuccessAction
+  | GetAllProductsFailAction;

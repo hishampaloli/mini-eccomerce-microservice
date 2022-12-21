@@ -20,3 +20,11 @@ export interface ViewProductState {
   error: ErrorState[] | null;
   loading: boolean;
 }
+
+export interface AddNewProductData {
+  description: string;
+  image: string;
+  price: number;
+  stock: number;
+  title: string;
+}
