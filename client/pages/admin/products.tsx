@@ -28,7 +28,7 @@ const products: React.FC = (): JSX.Element => {
 
   return (
     <Layout title="Manage Product">
-      <div style={{display: 'flex'}}>
+      <div style={{ display: "flex" }}>
         <div>
           {products.map((el: ProductData) => {
             return <ProductComponents key={el.id} product={el} />;
@@ -36,7 +36,7 @@ const products: React.FC = (): JSX.Element => {
         </div>
 
         <div>
-            <AddProduct />
+          <AddProduct />
         </div>
       </div>
     </Layout>

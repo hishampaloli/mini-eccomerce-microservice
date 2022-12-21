@@ -4,9 +4,10 @@ import buildClient from "../../api/buildClient";
 import {
   AddNewProductAction,
   GetAllProductsAction,
+  UpdateProductAction,
   ViewProductAction,
 } from "../action-models/index";
-import { AddNewProductData, ProductData } from "../../models/product";
+import { AddNewProductData, ProductData, UpdateProductData } from "../../models/product";
 
 export const getProducts =
   (req: any) => async (dispatch: Dispatch<GetAllProductsAction>) => {
@@ -73,25 +74,57 @@ export const addNewProduct =
       };
 
       const { data } = await buildClient(req).post<ProductData>(
-        `/api/product`,
+        `/api/admin/product`,
         productData,
         config
       );
 
-      let product = getState().allProducts.products;
+      console.log(data);
 
-      console.log(product);
+      getState().allProducts.products.push(data);
+
+      console.log(getState().allProducts);
 
       dispatch({
         type: ProductTypes.ALL_PRODUCTS_SUCCESS,
-        payload: product,
+        payload: getState().allProducts.products,
       });
+
+      return "product added";
     } catch (error: any) {
-      console.log(error.respone.data);
+      return "Something went wrong";
+    }
+  };
+
+export const UpdateProduct =
+  (req: any, productData: UpdateProductData, id: string) =>
+  async (dispatch: Dispatch<UpdateProductAction>, getState: any) => {
+    console.log(productData);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await buildClient(req).put<ProductData>(
+        `/api/admin/product/${id}`,
+        productData,
+        config
+      );
+
+      console.log(data);
+
+      getState().viewProduct.product = data
 
       dispatch({
-        type: ProductTypes.ALL_PRODUCTS_FAIL,
-        payload: error.response.data.errors,
+        type: ViewProductTypes.GET_PRODUCTS_SUCCESS,
+        payload: getState().viewProduct.product,
       });
+
+      return "Product updated";
+    } catch (error: any) {
+      return "Something went wrong";
     }
   };

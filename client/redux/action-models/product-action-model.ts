@@ -32,3 +32,5 @@ export type ViewProductAction =
 export type AddNewProductAction =
   | GetAllProductsSuccessAction
   | GetAllProductsFailAction;
+
+export type UpdateProductAction = ViewProductSuccessAction;

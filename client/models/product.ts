@@ -28,3 +28,11 @@ export interface AddNewProductData {
   stock: number;
   title: string;
 }
+
+export interface UpdateProductData {
+  description?: string;
+  image?: string;
+  price?: number;
+  stock?: number;
+  title?: string;
+}
