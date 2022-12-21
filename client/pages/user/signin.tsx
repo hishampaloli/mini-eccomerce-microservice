@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Layout from "../../components/layout/Layout";
-import { Login, clearErrors } from "../../redux/actions-created/userActions";
+import { Login, clearErrors } from "../../redux/actions-creater/userActions";
 import getSession from "next-auth";
 import { toast } from "react-toastify";
 import { RootState } from "../../redux/reducers/reducers";
@@ -29,7 +29,7 @@ const signin: React.FC = () => {
     if (user?.email) {
       Router.push("/");
     }
-    
+
     if (error) {
       toast.success(error[0].message);
       clearErrors();

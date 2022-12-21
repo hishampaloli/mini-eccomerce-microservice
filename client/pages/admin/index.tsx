@@ -8,7 +8,7 @@ import { useActions } from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { AllUsersState } from "../../models/admin";
 import { AuthState } from "../../models/user";
-import { getAllUsers } from "../../redux/actions-created/adminAction";
+import { getAllUsers } from "../../redux/actions-creater/adminAction";
 
 const index: React.FC = (): JSX.Element => {
   const { getAllUsers } = useActions();

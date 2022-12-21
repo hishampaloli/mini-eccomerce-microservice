@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { Logout } from "../../redux/actions-created/userActions";
+import { Logout } from "../../redux/actions-creater/userActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { AuthState } from "../../models/user";
 import { useActions } from "../../hooks/useAction";

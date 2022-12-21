@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getProducts } from "../../redux/actions-created/productsActions";
+import { getProducts } from "../../redux/actions-creater/productsActions";
 import { wrapper } from "../../redux/store";
 import buildClient from "../../api/buildClient";
 import { useTypedSelector } from "../../hooks/useTypedSelector";

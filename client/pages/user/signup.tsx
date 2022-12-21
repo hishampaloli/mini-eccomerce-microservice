@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { signUp, clearErrors } from "../../redux/actions-created/userActions";
+import { signUp, clearErrors } from "../../redux/actions-creater/userActions";
 import Router from "next/router";
 import Layout from "../../components/layout/Layout";
 import { toast } from "react-toastify";

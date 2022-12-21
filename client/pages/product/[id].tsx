@@ -8,7 +8,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { ProductData, ViewProductState } from "../../models/product";
 import { AuthState } from "../../models/user";
 import { wrapper } from "../../redux";
-import { clearErrors, getSingleProduct } from "../../redux/actions-created";
+import { clearErrors, getSingleProduct } from "../../redux/actions-creater";
 
 const ProductView = (): JSX.Element => {
   const router = useRouter();

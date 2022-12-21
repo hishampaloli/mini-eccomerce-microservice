@@ -3,8 +3,18 @@ import buildClient from "../../api/buildClient";
 import { Dispatch } from "react";
 import nookies from "nookies";
 import Router from "next/router";
-import { SigninData, SignUnData, UserAuthData } from "../../models/user";
-import { SignupAction, SingInAction } from "../action-models/index";
+import {
+  SigninData,
+  SignUnData,
+  UpdateProfileData,
+  UserAuthData,
+} from "../../models/user";
+import {
+  SignupAction,
+  SingInAction,
+  UpdateProfile,
+} from "../action-models/index";
+import axios from "axios";
 
 export const signUp =
   (req: any, signupData: SignUnData) =>
@@ -87,24 +97,51 @@ export const Logout = (req: any) => async (dispatch: Dispatch<any>) => {
   }
 };
 
-export const currentUser = (data: any) => async (dispatch: Dispatch<any>) => {
-  try {
-    console.log(data);
+export const UpdateUser =
+  (req: any, updateData: UpdateProfileData, id: string) =>
+  async (dispatch: Dispatch<UpdateProfile>) => {
+    try {
+      const { data } = await buildClient(req).post<UserAuthData>(
+        `/api/user/${id}`
+      );
 
-    dispatch({
-      type: UserActionsTypes.SIGNUP_SUCCESS,
-      payload: data.id,
-    });
-  } catch (error: any) {
-    console.log("EROREOROEOROE");
+      Router.push("/");
 
-    console.log(error);
-    dispatch({
-      type: UserActionsTypes.SIGNUP_FAIL,
-      payload: error.response,
-    });
-  }
-};
+      dispatch({
+        type: UserActionsTypes.SIGNUP_SUCCESS,
+        payload: data,
+      });
+
+      return "User Updated";
+    } catch (error: any) {
+      console.log("EROREOROEOROE");
+      return "Something went wrong";
+    }
+  };
+
+export const currentUser =
+  (req: any, userData: any) => async (dispatch: Dispatch<any>) => {
+    try {
+      console.log(userData.id);
+
+      // const { data } = await buildClient(req).post<UserAuthData>(
+      //   `/api/user/${userData.id.id}`
+      // );
+
+      dispatch({
+        type: UserActionsTypes.SIGNUP_SUCCESS,
+        payload: userData.id,
+      });
+    } catch (error: any) {
+      console.log("EROREOROEOROE");
+
+      console.log(error);
+      dispatch({
+        type: UserActionsTypes.SIGNUP_FAIL,
+        payload: error.response,
+      });
+    }
+  };
 
 export const clearErrors = () => async (dispatch: Dispatch<any>) => {
   dispatch({

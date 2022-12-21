@@ -9,7 +9,7 @@ import { useActions } from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { ProductData, ProductState } from "../../models/product";
 import { AuthState, UserAuthData } from "../../models/user";
-import { getProducts } from "../../redux/actions-created/productsActions";
+import { getProducts } from "../../redux/actions-creater/productsActions";
 
 const products: React.FC = (): JSX.Element => {
   const { products, loading }: ProductState = useTypedSelector(

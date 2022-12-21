@@ -7,12 +7,11 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 import { AuthState } from "../models/user";
 import { ProductState } from "../models/product";
 import ProductComponents from "../components/products/ProductComponents";
-import { getProducts } from "../redux/actions-created";
+import { getProducts } from "../redux/actions-creater";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-
   const { user, error }: AuthState = useTypedSelector((state) => state.user);
   const { products }: ProductState = useTypedSelector(
     (state) => state.allProducts
@@ -35,7 +34,6 @@ export default function Home() {
     </>
   );
 }
-
 
 Home.getInitialProps = wrapper.getInitialPageProps(
   (store) => async (context) => {

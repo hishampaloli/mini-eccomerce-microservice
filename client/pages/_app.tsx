@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { wrapper } from "../redux/store";
 import buildClient from "../api/buildClient";
-import { currentUser } from "../redux/actions-created/userActions";
+import { currentUser } from "../redux/actions-creater/userActions";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
@@ -14,7 +14,7 @@ MyApp.getInitialProps = wrapper.getInitialPageProps(
 
     try {
       const { data } = await client.get("/api/auth/currentuser");
-      store.dispatch(currentUser(data));
+      store.dispatch(currentUser(appContext.ctx, data));
     } catch (error) {
       console.log(error);
     }

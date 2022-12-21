@@ -11,5 +11,8 @@ interface UserSignUpFailAction {
   payload: any;
 }
 
+
+
 export type SignupAction = UserSignUpSuccessAction | UserSignUpFailAction;
 export type SingInAction = UserSignUpSuccessAction | UserSignUpFailAction;
+export type UpdateProfile = UserSignUpSuccessAction | UserSignUpFailAction;

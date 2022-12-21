@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useActions } from "../../hooks/useAction";
 import { UserAuthData } from "../../models/user";
-import { blockUser } from "../../redux/actions-created/adminAction";
+import { blockUser } from "../../redux/actions-creater/adminAction";
 
 const Users = ({ user }: { user: UserAuthData }): JSX.Element => {
   const { blockUser } = useActions();
