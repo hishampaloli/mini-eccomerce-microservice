@@ -20,10 +20,12 @@ const Users = ({ user }: { user: UserAuthData }): JSX.Element => {
           }}
           style={
             user.isBlocked
-              ? { backgroundColor: "red" }
-              : { backgroundColor: "green" }
+              ? { backgroundColor: "rgb(255, 67, 67)" }
+              : { backgroundColor: "rgb(86, 255, 105)" }
           }
         >
+
+          
           {user.isBlocked ? "Un Block" : "Block"}
         </button>
       </div>

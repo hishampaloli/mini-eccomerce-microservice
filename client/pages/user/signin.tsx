@@ -42,6 +42,8 @@ const signin: React.FC = () => {
       <div>
         <h1>Login</h1>
         <form onSubmit={handleSignIn} style={{ display: "flex" }}>
+          <div>
+          <label htmlFor="">Email</label>
           <input
             type="email"
             name=""
@@ -51,6 +53,10 @@ const signin: React.FC = () => {
             placeholder="email"
             id=""
           />
+          </div>
+
+          <div>
+            <label htmlFor="">Password</label>
           <input
             type="text"
             name=""
@@ -60,6 +66,7 @@ const signin: React.FC = () => {
             placeholder="password"
             id=""
           />
+          </div>
           <button type="submit">SignIn</button>
         </form>
       </div>

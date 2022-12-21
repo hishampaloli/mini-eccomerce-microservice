@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { signUp, clearErrors } from "../../redux/actions-creater/userActions";
+import styles from '../../styles/SignUp.module.scss'
 import Router from "next/router";
 import Layout from "../../components/layout/Layout";
 import { toast } from "react-toastify";
@@ -34,9 +32,11 @@ const SignUp: React.FC = () => {
 
   return (
     <Layout title={"Login"}>
-      <div>
+      <div className={styles.loginBox}>
         <h1>Register</h1>
         <form onSubmit={handleSignUp} style={{ display: "flex" }}>
+          <div>
+            <label htmlFor="">Name</label>
           <input
             type="text"
             name=""
@@ -46,6 +46,10 @@ const SignUp: React.FC = () => {
             placeholder="name"
             id=""
           />
+          </div>
+
+          <div>
+            <label htmlFor="">Email</label>
           <input
             type="email"
             name=""
@@ -55,6 +59,10 @@ const SignUp: React.FC = () => {
             placeholder="email"
             id=""
           />
+          </div>
+
+          <div>
+            <label htmlFor="">Password</label>
           <input
             type="text"
             name=""
@@ -64,6 +72,7 @@ const SignUp: React.FC = () => {
             placeholder="password"
             id=""
           />
+          </div>
           <button type="submit">SignIn</button>
         </form>
       </div>

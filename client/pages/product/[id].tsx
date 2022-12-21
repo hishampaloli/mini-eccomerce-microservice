@@ -53,7 +53,6 @@ const ProductView = (): JSX.Element => {
     <Layout title={product?.title ? product.title : "Something went wrong"}>
       <div>
         {product && <ProductComponents product={product} />}
-        {error && "error is there"}
       </div>
       {user?.email === "admin@gmail.com" && (
         <form onSubmit={handleUpdate}>
