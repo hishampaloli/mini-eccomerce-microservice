@@ -6,6 +6,7 @@ import { Logout } from "../../redux/actions-creater/userActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { AuthState } from "../../models/user";
 import { useActions } from "../../hooks/useAction";
+import style from "../../styles/Header.module.scss";
 
 const Header = (): JSX.Element => {
   const { user }: AuthState = useTypedSelector((state) => state.user);
@@ -13,39 +14,60 @@ const Header = (): JSX.Element => {
   const { Logout } = useActions();
 
   return (
-    <div>
+    <div className={style.header}>
       <div>
         <h1>SHOPIT</h1>
       </div>
-      <div>
+      <div className={style.right}>
         {user?.email ? (
-          <div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            {user?.email === "admin@gmail.com" ? (
+              <Link href={"/admin/products"}>Product</Link>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Link href={"/user/profile"}>Profile</Link>
+                <Link href={"/user/cart"}>Cart</Link>
+              </div>
+            )}
+
+            <p>{user?.email}</p>
             <button
               onClick={() => {
                 Logout("");
               }}
+              style={{
+                padding: "10px 15px",
+                border: "none",
+                backgroundColor: "white",
+                borderRadius: "5px",
+                marginLeft: "15px",
+              }}
             >
-              <h2>Logout</h2>
+              Logout
             </button>
-            <h2>Welocome: {user?.email}</h2>
           </div>
         ) : (
-          <div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             <Link href={"/user/signup"}>signUp</Link>
             <Link href={"/user/signin"}>Login</Link>
-          </div>
-        )}
-      </div>
-
-      <div>
-        {user?.email === "admin@gmail.com" ? (
-          <div>
-            <Link href={"/admin/products"}>Manage Product</Link>
-          </div>
-        ) : (
-          <div>
-            <Link href={"/user/profile"}>Profile</Link>
-            <Link href={"/user/cart"}>Cart</Link>
           </div>
         )}
       </div>

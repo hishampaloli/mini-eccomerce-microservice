@@ -14,7 +14,8 @@ MyApp.getInitialProps = wrapper.getInitialPageProps(
 
     try {
       const { data } = await client.get("/api/auth/currentuser");
-      store.dispatch(currentUser(appContext.ctx, data));
+      const response = await client.get(`/api/user/${data.id.id}`);
+      store.dispatch(currentUser(appContext.ctx, response.data));
     } catch (error) {
       console.log(error);
     }

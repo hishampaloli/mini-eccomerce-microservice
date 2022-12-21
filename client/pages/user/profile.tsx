@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import Layout from "../../components/layout/Layout";
 import { useActions } from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
@@ -14,6 +15,7 @@ const profile = () => {
     e.preventDefault();
     if (user) {
       const data = await UpdateUser("", { address, image }, user?.id);
+      console.log(data);
 
       if (`${data}` === "User Updated") {
         toast.success(`${data}`);
@@ -24,37 +26,39 @@ const profile = () => {
   };
 
   return (
-    <div>
+    <Layout title={`Welcome ${user?.name && user.name}`}>
       <div>
-        <h1>{user?.email}</h1>
-        <h1>{user?.name}</h1>
-        <h1>{user?.isBlocked}</h1>
-        <h1>{user?.address}</h1>
+        <div>
+          <h1>{user?.email}</h1>
+          <h1>{user?.name}</h1>
+          <h1>{user?.address}</h1>
 
-        <button onClick={() => setEdit(!edit)}>edit</button>
-      </div>
-      <div>
-        {edit && (
-          <form onSubmit={handleUpdate}>
-            <input
-              type="text"
-              placeholder={user?.address}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setAddress(e.target.value)
-              }
-            />
+          <button onClick={() => setEdit(!edit)}>edit</button>
+        </div>
+        <div>
+          {edit && (
+            <form onSubmit={handleUpdate}>
+              <input
+                type="text"
+                placeholder={user?.address}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAddress(e.target.value)
+                }
+              />
 
-            <input
-              type="text"
-              placeholder={user?.image}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setImage(e.target.value)
-              }
-            />
-          </form>
-        )}
+              <input
+                type="text"
+                placeholder={user?.image}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setImage(e.target.value)
+                }
+              />
+              <button type="submit">Update</button>
+            </form>
+          )}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

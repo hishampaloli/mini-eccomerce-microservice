@@ -16,15 +16,16 @@ import {
 } from "../action-models/index";
 import axios from "axios";
 
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
 export const signUp =
   (req: any, signupData: SignUnData) =>
   async (dispatch: Dispatch<SignupAction>) => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
       const { data } = await buildClient(req).post<UserAuthData>(
         "api/auth/signup",
         signupData,
@@ -51,11 +52,6 @@ export const Login =
   (req: any, LoginData: SigninData) =>
   async (dispatch: Dispatch<SingInAction>) => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
       const { data: existingUser } = await buildClient(req).post<UserAuthData>(
         "api/auth/signin",
         LoginData,
@@ -101,11 +97,15 @@ export const UpdateUser =
   (req: any, updateData: UpdateProfileData, id: string) =>
   async (dispatch: Dispatch<UpdateProfile>) => {
     try {
+      console.log("////////");
+
       const { data } = await buildClient(req).post<UserAuthData>(
-        `/api/user/${id}`
+        `/api/user/${id}`,
+        updateData,
+        config
       );
 
-      Router.push("/");
+      console.log(data);
 
       dispatch({
         type: UserActionsTypes.SIGNUP_SUCCESS,
@@ -122,15 +122,9 @@ export const UpdateUser =
 export const currentUser =
   (req: any, userData: any) => async (dispatch: Dispatch<any>) => {
     try {
-      console.log(userData.id);
-
-      // const { data } = await buildClient(req).post<UserAuthData>(
-      //   `/api/user/${userData.id.id}`
-      // );
-
       dispatch({
         type: UserActionsTypes.SIGNUP_SUCCESS,
-        payload: userData.id,
+        payload: userData,
       });
     } catch (error: any) {
       console.log("EROREOROEOROE");

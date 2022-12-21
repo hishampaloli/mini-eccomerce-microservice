@@ -64,7 +64,6 @@ export const getSingleProduct =
 export const addNewProduct =
   (req: any, productData: AddNewProductData) =>
   async (dispatch: Dispatch<AddNewProductAction>, getState: any) => {
-    console.log(productData);
 
     try {
       const config = {
@@ -99,7 +98,6 @@ export const addNewProduct =
 export const UpdateProduct =
   (req: any, productData: UpdateProductData, id: string) =>
   async (dispatch: Dispatch<UpdateProductAction>, getState: any) => {
-    console.log(productData);
 
     try {
       const config = {
@@ -113,8 +111,6 @@ export const UpdateProduct =
         productData,
         config
       );
-
-      console.log(data);
 
       getState().viewProduct.product = data
 

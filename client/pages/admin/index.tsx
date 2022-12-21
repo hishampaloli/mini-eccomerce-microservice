@@ -26,11 +26,12 @@ const index: React.FC = (): JSX.Element => {
   return (
     <div>
       <Layout title={"Admin"}>
-        <h1>Admin</h1>
+        <h1 style={{marginLeft: '25px'}}>User Management</h1>
         {users?.map((el: any) => {
           return <Users user={el} />;
         })}
       </Layout>
+      
     </div>
   );
 };

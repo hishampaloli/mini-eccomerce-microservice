@@ -1,0 +1,27 @@
+.userBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 10px;
+  margin: 10px;
+  background-color: rgb(217, 237, 255);
+  border-radius: 5px;
+  width: 300px;
+
+  .left {
+    p {
+      margin-top: 5px;
+      color: rgb(176, 176, 176);
+    }
+  }
+
+  .right {
+    button {
+        border: none;
+        background-color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+  }
+}
