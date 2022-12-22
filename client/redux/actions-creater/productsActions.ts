@@ -72,6 +72,8 @@ export const addNewProduct =
         },
       };
 
+      console.log(productData);
+      
       const { data } = await buildClient(req).post<ProductData>(
         `/api/admin/product`,
         productData,
@@ -91,6 +93,8 @@ export const addNewProduct =
 
       return "product added";
     } catch (error: any) {
+      console.log(error.response);
+      
       return "Something went wrong";
     }
   };
@@ -106,11 +110,17 @@ export const UpdateProduct =
         },
       };
 
+      console.log(productData);
+      
+
       const { data } = await buildClient(req).put<ProductData>(
         `/api/admin/product/${id}`,
         productData,
         config
       );
+
+      console.log(data);
+      
 
       getState().viewProduct.product = data
 
@@ -121,6 +131,8 @@ export const UpdateProduct =
 
       return "Product updated";
     } catch (error: any) {
+      console.log(error);
+      
       return "Something went wrong";
     }
   };

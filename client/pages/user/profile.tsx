@@ -31,6 +31,13 @@ const profile = () => {
       <div className={styles.profileBox}>
         <div className={styles.profileDiv}>
           <h2 style={{ textAlign: "center" }}>My Profile</h2>
+          <div style={{width: '100%', display: 'flex', justifyContent: 'center', margin: '20px'}}>
+          <img
+            style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+            src={user?.image}
+            alt=""
+          />
+          </div>
           <p>
             {" "}
             <strong>Email: </strong> {user?.email}

@@ -50,7 +50,7 @@ router.put(
 
       res.json(product);
     } catch (error) {
-      res.json(error);
+      throw new NotFoundError();
     }
   }
 );

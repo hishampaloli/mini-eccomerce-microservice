@@ -5,10 +5,11 @@ import Layout from "../../components/layout/Layout";
 import ProductComponents from "../../components/products/ProductComponents";
 import { useActions } from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { ProductData, ViewProductState } from "../../models/product";
+import { ViewProductState } from "../../models/product";
 import { AuthState } from "../../models/user";
 import { wrapper } from "../../redux";
-import { clearErrors, getSingleProduct } from "../../redux/actions-creater";
+import { getSingleProduct } from "../../redux/actions-creater";
+import styles from "../../styles/Product.module.scss";
 
 const ProductView = (): JSX.Element => {
   const router = useRouter();
@@ -45,62 +46,92 @@ const ProductView = (): JSX.Element => {
   useEffect(() => {
     if (error) {
       toast.success(error[0]?.message);
-      console.log("1234");
     }
   }, [error]);
 
   return (
     <Layout title={product?.title ? product.title : "Something went wrong"}>
-      <div>
-        {product && <ProductComponents product={product} />}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <div>{product && <ProductComponents product={product} />}</div>
+
+        <div style={{ width: "70%", marginRight: "3%" }}>
+          <div className={styles.addProductBox}>
+            {user?.email === "admin@gmail.com" && (
+              <form onSubmit={handleUpdate}>
+                <h1>Edit Products</h1>
+                <div>
+                  <label htmlFor="">Title</label>
+                  <input
+                    type="text"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setTitle(e.target.value)
+                    }
+                    placeholder={product?.title}
+                    name=""
+                    id=""
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="">Description</label>
+                  <input
+                    type="text"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setDescription(e.target.value)
+                    }
+                    placeholder={product?.description}
+                    name=""
+                    id=""
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="">Price</label>
+                  <input
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setPrice(Number(e.target.value))
+                    }
+                    type="number"
+                    placeholder={product?.price?.toString()}
+                    id=""
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="">Stock</label>
+                  <input
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setStock(Number(e.target.value))
+                    }
+                    type="number"
+                    placeholder={product?.stock?.toString()}
+                    id=""
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="">Image URL</label>
+                  <input
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setImage(e.target.value)
+                    }
+                    type="text"
+                    placeholder={product?.image}
+                    id=""
+                  />
+                </div>
+                <button type="submit">Edit Product</button>
+              </form>
+            )}
+          </div>
+        </div>
       </div>
-      {user?.email === "admin@gmail.com" && (
-        <form onSubmit={handleUpdate}>
-          <input
-            type="text"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setTitle(e.target.value)
-            }
-            placeholder={product?.title}
-            name=""
-            id=""
-          />
-          <input
-            type="text"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setDescription(e.target.value)
-            }
-            placeholder={product?.description}
-            name=""
-            id=""
-          />
-          <input
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPrice(Number(e.target.value))
-            }
-            type="number"
-            placeholder={product?.price.toString()}
-            id=""
-          />
-          <input
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setStock(Number(e.target.value))
-            }
-            type="number"
-            placeholder={product?.stock.toString()}
-            id=""
-          />
-          <input
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setImage(e.target.value)
-            }
-            type="text"
-            placeholder={product?.image}
-            id=""
-          />
-          <button type="submit">Update</button>
-        </form>
-      )}
     </Layout>
   );
 };

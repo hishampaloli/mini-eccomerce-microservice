@@ -25,7 +25,13 @@ export default function Home() {
   return (
     <>
       <Layout title={"Shopit"}>
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+          }}
+        >
           {products.map((el: any) => {
             return <ProductComponents product={el} key={el.id} />;
           })}
