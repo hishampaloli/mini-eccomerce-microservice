@@ -82,14 +82,16 @@ export const Logout = (req: any) => async (dispatch: Dispatch<any>) => {
       type: UserActionsTypes.SIGNUP_SUCCESS,
       payload: null,
     });
+
+    return "Logged Out Successfully";
   } catch (error: any) {
     console.log("EROREOROEOROE");
-
     console.log(error);
     dispatch({
       type: UserActionsTypes.SIGNUP_FAIL,
       payload: error.response,
     });
+    return "Please try again";
   }
 };
 
@@ -127,9 +129,7 @@ export const currentUser =
         payload: userData,
       });
     } catch (error: any) {
-      console.log("EROREOROEOROE");
-
-      console.log(error);
+      console.log("Not Authenticated");
       dispatch({
         type: UserActionsTypes.SIGNUP_FAIL,
         payload: error.response,

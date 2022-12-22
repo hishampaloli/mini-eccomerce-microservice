@@ -7,6 +7,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { AuthState } from "../../models/user";
 import { useActions } from "../../hooks/useAction";
 import style from "../../styles/Header.module.scss";
+import { toast } from "react-toastify";
 
 const Header = (): JSX.Element => {
   const { user }: AuthState = useTypedSelector((state) => state.user);
@@ -46,8 +47,13 @@ const Header = (): JSX.Element => {
 
             <p>{user?.email}</p>
             <button
-              onClick={() => {
-                Logout("");
+              onClick={async () => {
+                const data = await Logout("");
+                if (`${data}` === "Logged Out Successfully") {
+                  toast.success(`${data}`);
+                } else {
+                  toast.error(`${data}`);
+                }
               }}
               style={{
                 padding: "10px 15px",

@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { useActions } from "../../hooks/useAction";
 import { UserAuthData } from "../../models/user";
 import styles from "../../styles/Admin.module.scss";
@@ -15,8 +16,13 @@ const Users = ({ user }: { user: UserAuthData }): JSX.Element => {
 
       <div className={styles.right}>
         <button
-          onClick={() => {
-            blockUser("", user.id);
+          onClick={async () => {
+            const data = await blockUser("", user.id);
+            if (`${data}` === "Action Completed") {
+              toast.success(`${data}`);
+            } else {
+              toast.error(`${data}`);
+            }
           }}
           style={
             user.isBlocked
@@ -24,8 +30,6 @@ const Users = ({ user }: { user: UserAuthData }): JSX.Element => {
               : { backgroundColor: "rgb(86, 255, 105)" }
           }
         >
-
-          
           {user.isBlocked ? "Un Block" : "Block"}
         </button>
       </div>

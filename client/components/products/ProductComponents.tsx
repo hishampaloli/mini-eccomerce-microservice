@@ -55,8 +55,13 @@ const ProductComponents = ({
         <Link href={`/product/${product.id}`}>view Product</Link>
         {user?.email === "admin@gmail.com" ? (
           <button
-            onClick={() => {
-              deleteProduct("", product.id);
+            onClick={async () => {
+              const data = await deleteProduct("", product.id);
+              if (`${data}` === "Product Deleted") {
+                toast.success(`${data}`);
+              } else {
+                toast.error(`${data}`);
+              }
             }}
           >
             Delete

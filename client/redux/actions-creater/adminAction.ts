@@ -59,8 +59,11 @@ export const blockUser =
         type: AdminActionTypes.ALL_USERS_SUCCESS,
         payload: getState().allUsers.users,
       });
+
+      return 'Action Completed'
     } catch (error: any) {
       console.log(error.response);
+      return "Something went wrong."
     }
   };
 
@@ -92,7 +95,10 @@ export const deleteProduct =
         type: ProductTypes.ALL_PRODUCTS_SUCCESS,
         payload: products,
       });
+
+      return 'Product Deleted'
     } catch (error: any) {
       console.log(error.response);
+      return "Something went wrong"
     }
   };
