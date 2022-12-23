@@ -11,7 +11,13 @@ const Cart = () => {
 
   return (
     <Layout title="Cart">
-      <div>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
         {cart.length > 0
           ? cart.map((el: CartData) => {
               return (
