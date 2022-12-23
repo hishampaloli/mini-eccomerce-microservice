@@ -88,12 +88,21 @@ const ProductComponents = ({
                 >
                   {count}
                 </strong>{" "}
-                <button className={styles.addBtn} onClick={HandleaddToCart}>
+                <button
+                  style={{ backgroundColor: "#3CCF4E", color: "white" }}
+                  className={styles.addBtn}
+                  onClick={HandleaddToCart}
+                >
                   Add More{" "}
                 </button>
               </div>
             ) : (
-              <button onClick={HandleaddToCart}>Add To Cart </button>
+              <button
+                style={{ backgroundColor: "#3CCF4E", color: "white" }}
+                onClick={HandleaddToCart}
+              >
+                Add To Cart{" "}
+              </button>
             )}
           </>
         )}
