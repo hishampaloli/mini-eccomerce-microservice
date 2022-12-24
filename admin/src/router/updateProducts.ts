@@ -25,8 +25,7 @@ router.put(
       const { title, description, price, stock, image } = req.body;
 
       const product = await Product.findById(productId);
-      console.log(product);
-
+   
       if (!product) {
         throw new NotFoundError();
       }

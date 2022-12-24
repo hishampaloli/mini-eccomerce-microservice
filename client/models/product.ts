@@ -9,6 +9,7 @@ export interface ProductData {
   title: string;
 }
 
+
 export interface ProductState {
   products: ProductData[] | [];
   error: ErrorState[] | null;

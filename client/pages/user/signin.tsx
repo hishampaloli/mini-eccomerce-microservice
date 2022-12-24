@@ -28,7 +28,6 @@ const signin: React.FC = () => {
     if (error) {
       toast.success(error[0].message);
       clearErrors();
-      console.log("1234");
     }
   }, [error]);
 
