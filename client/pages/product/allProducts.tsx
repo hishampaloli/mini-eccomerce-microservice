@@ -17,7 +17,7 @@ const AllProducts = (): JSX.Element => {
   const { getProducts } = useActions();
 
   useEffect(() => {
-    getProducts("sdf");
+    getProducts("sd");
   }, []);
   return (
     <div>
