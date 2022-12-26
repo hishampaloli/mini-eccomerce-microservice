@@ -72,7 +72,6 @@ export const addNewProduct =
         },
       };
 
-      console.log(productData);
       
       const { data } = await buildClient(req).post<ProductData>(
         `/api/admin/product`,
@@ -80,11 +79,9 @@ export const addNewProduct =
         config
       );
 
-      console.log(data);
 
       getState().allProducts.products.push(data);
 
-      console.log(getState().allProducts);
 
       dispatch({
         type: ProductTypes.ALL_PRODUCTS_SUCCESS,
@@ -119,7 +116,6 @@ export const UpdateProduct =
         config
       );
 
-      console.log(data);
       
 
       getState().viewProduct.product = data

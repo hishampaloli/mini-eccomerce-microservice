@@ -53,7 +53,6 @@ export const blockUser =
 
       user.isBlocked = !user.isBlocked;
 
-      console.log(getState().allUsers.users);
 
       dispatch({
         type: AdminActionTypes.ALL_USERS_SUCCESS,
@@ -82,14 +81,11 @@ export const deleteProduct =
         config
       );
 
-      console.log(getState().allProducts);
 
       const products = getState().allProducts.products.filter((el: any) => {
         return el.id !== id;
       });
 
-      console.log(products);
-      
 
       dispatch({
         type: ProductTypes.ALL_PRODUCTS_SUCCESS,

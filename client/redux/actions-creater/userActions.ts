@@ -32,7 +32,6 @@ export const signUp =
         config
       );
 
-      console.log(data);
 
       dispatch({
         type: UserActionsTypes.SIGNUP_SUCCESS,
@@ -99,15 +98,12 @@ export const UpdateUser =
   (req: any, updateData: UpdateProfileData, id: string) =>
   async (dispatch: Dispatch<UpdateProfile>) => {
     try {
-      console.log("////////");
 
       const { data } = await buildClient(req).post<UserAuthData>(
         `/api/user/${id}`,
         updateData,
         config
       );
-
-      console.log(data);
 
       dispatch({
         type: UserActionsTypes.SIGNUP_SUCCESS,

@@ -18,14 +18,11 @@ const config = {
 export const getCartItems =
   (req: any) => async (dispatch: Dispatch<GetCartAction>) => {
     try {
-      console.log("cart adding");
 
       const { data } = await buildClient(req).get<CartData[]>(
         `/api/cart/`,
         config
       );
-
-      console.log(data);
 
       dispatch({
         type: CartTypes.ADD_TO_CART_SUCCESS,
@@ -42,14 +39,11 @@ export const getCartItems =
 export const addToCart =
   (req: any, id: string) => async (dispatch: Dispatch<AddToCartAction>) => {
     try {
-      console.log("cart adding");
 
       const { data } = await buildClient(req).get<CartData[]>(
         `/api/cart/${id}`,
         config
       );
-
-      console.log(data);
 
       dispatch({
         type: CartTypes.ADD_TO_CART_SUCCESS,
@@ -66,14 +60,11 @@ export const deleteFromCart =
   (req: any, id: string) =>
   async (dispatch: Dispatch<DeleteFromCartAction>) => {
     try {
-      console.log("cart adding");
 
       const { data } = await buildClient(req).delete<CartData[]>(
         `/api/cart/${id}`,
         config
       );
-
-      console.log(data);
 
       dispatch({
         type: CartTypes.ADD_TO_CART_SUCCESS,
